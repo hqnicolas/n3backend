@@ -20,18 +20,31 @@ configurations {
 }
 
 repositories {
+	mavenLocal()
 	mavenCentral()
+	google()
+	gradlePluginPortal()
+	maven {
+		url = uri("https://maven-central.storage.apis.com")
+	}
+	ivy {
+		url = uri("https://github.com/ivy-rep/")
+	}
 }
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-docker-compose'
 	runtimeOnly 'org.postgresql:postgresql'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	implementation 'org.apache.commons:commons-csv:1.9.0'
+	implementation group: 'org.apache.httpcomponents.client5', name: 'httpclient5', version: '5.4.1'
+	implementation 'com.itextpdf:itextpdf:5.5.13.2'
 }
 
 tasks.named('test') {
