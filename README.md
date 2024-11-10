@@ -8,7 +8,7 @@ A aplicação deverá processar operações de **leitura**, **criação**, **atu
 
 ## Tema
 
-* `Engajamento Comunitário`: *Match-system* para voluntários, gerenciamento de donativos, mapeamento de abrigos;
+* `Engajamento Comunitário`: gerenciamento de donativos;
 
 ## Requisitos Obrigatórios
 

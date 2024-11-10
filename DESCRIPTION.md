@@ -1,106 +1,130 @@
-# Engajamento Comunitário: Gerenciamento de Donativos
+# N3 Donation Management Application
 
-Este documento descreve um sistema para facilitar o engajamento comunitário, conectando voluntários com necessidades da comunidade, gerenciando doações e mapeando abrigos.
+## Short Description
 
-**Executando**
+The N3 Donation Management Application is a comprehensive web application designed to facilitate the registration, management, and reporting of donations. It provides a user-friendly interface for managing donations, allowing users to register new donations, view a list of existing donations, generate reports, and export those reports in CSV and PDF formats. The application is built using modern frontend and backend technologies, ensuring a smooth and efficient user experience.
 
-Para executar o projeto:
+## Overview
 
-1. **Modifique o arquivo `.env.template` para `.env`** e preencha as variáveis de ambiente, ou defina diretamente pelo terminal.
-2. **Rode o comando `docker compose up -d` na raiz do projeto**.
+### Architecture and Technologies
 
-**Tecnologias Utilizadas**
+The N3 Donation Management Application is built using a combination of frontend and backend technologies:
 
-- **Spring Boot**
-- **Spring Data JPA**
-- **PostgreSQL**
-- **Docker**
-- **Lombok**
+- **Frontend**:
+  - **JavaScript**: For client-side scripting and handling user interactions.
+  - **HTML**: For structuring the user interface.
+  - **CSS**: For styling the application.
+  - **Bootstrap 5**: For a responsive and user-friendly layout. Bootstrap is loaded from the CDN.
+  - **Fetch API**: For making HTTP requests to the server.
 
-**Gerenciamento de Donativos**
+- **Backend**:
+  - **Spring Boot**: For creating the RESTful API and managing the application's server-side logic.
+  - **Java**: For writing the backend code.
+  - **JPA (Java Persistence API)**: For database interactions.
+  - **PostgreSQL**: For storing and retrieving donation data.
+  - **Lombok**: To reduce boilerplate code by automatically generating getters, setters, and other utility methods.
+  - **Validation Annotations**: From the `jakarta.validation.constraints` package to ensure data integrity.
+  - **CSV and PDF Generation**: Using libraries such as `Apache Commons CSV` and `iTextPDF` to generate CSV and PDF files.
 
-O módulo de gerenciamento de doações permitirá:
+### Project Structure
 
-### Cadastro de Doações
+- **Frontend**:
+  - `index.html`: The main entry point of the application.
+  - `donation-form.js`: Handles the form submission for registering new donations.
+  - `donation-list.js`: Handles the display and pagination of the donation list.
+  - `donation-reports.js`: Handles the form submission for generating and exporting donation reports.
+  - `donation-view.js`: Handles the display of detailed donation information.
+  - `donation-edit.js`: Handles the form submission for editing donations.
 
-- **Registro detalhado de doações recebidas**: Incluindo tipo de doação (material, financeira, etc.), quantidade, doador e data.
-- **Controle de Estoque**: Para doações materiais, o sistema manterá um controle de estoque, permitindo o acompanhamento da quantidade disponível e a alocação para diferentes necessidades.
-- **Relatórios**: Geração de relatórios para monitorar o volume de doações recebidas, a alocação de recursos e a transparência na gestão.
+- **Backend**:
+  - `src/main/java/com/gerenciamento/backend/DonativosApplication.java`: The entry point of the Spring Boot application.
+  - `src/main/java/com/gerenciamento/backend/controller/DonationController.java`: Handles HTTP requests related to donations.
+  - `src/main/java/com/gerenciamento/backend/controller/ReportController.java`: Handles HTTP requests related to generating and exporting donation reports.
+  - `src/main/java/com/gerenciamento/backend/service/DonationService.java`: Provides business logic for managing donations.
+  - `src/main/java/com/gerenciamento/backend/service/ReportService.java`: Provides business logic for generating and exporting donation reports.
+  - `src/main/java/com/gerenciamento/backend/repository/DonationRepository.java`: A Spring Data JPA repository interface for performing CRUD operations on the `Donation` entity.
+  - `src/main/java/com/gerenciamento/backend/model/Donation.java`: The entity class representing a donation.
+  - `src/main/java/com/gerenciamento/backend/model/ReportFilter.java`: A class used to represent and validate filters for generating reports.
 
-### Integração com o Match-System
+## Features
 
-O sistema poderá integrar-se com o match-system, permitindo que as doações sejam direcionadas para as organizações e iniciativas com necessidades específicas.
+### User Interface
+- **Register Donation**:
+  - Form fields for name, type, quantity, donor, date of receipt, expiry date, and validity period.
+  - Form validation to ensure data integrity.
+  - Form submission to register a new donation.
+  - Form reset after successful submission.
 
-### Regras de Negócio
+- **Donation List**:
+  - Paginated list of donations displayed in an HTML table.
+  - Table includes columns for name, type, quantity, donor, date of receipt, expiry date, and validity period.
+  - Pagination controls for navigating through multiple pages of donations.
 
-- **Doações com data de validade expirada não podem ser registradas em novos estoques**.
-- **O tempo de validade de uma doação deve ser entre 1 e 999 dias**.
-- **A data de expiração da doação não pode estar no passado no momento do cadastro**.
-- **Os tipos de doação devem ser: Material, Financeira, etc.**.
+- **Donation Reports**:
+  - Form filters for date range, type of donation, and donor.
+  - Generate and display reports based on the provided filters.
+  - Export reports as CSV and PDF files.
 
-### Rotas
+- **Detailed Donation View**:
+  - Display detailed information about a specific donation.
+  - Links to edit or delete the donation.
 
-#### Doações
+- **Edit Donation**:
+  - Form with current donation data for editing.
+  - Form validation to ensure data integrity.
+  - Update the donation after form submission.
 
-**GET /doacoes[?tipo=:tipo]**
+- **Delete Donation**:
+  - Confirmation message before deleting a donation.
+  - Delete the donation from the database after confirmation.
 
-- **Lista todas as doações disponíveis**. Filtra pela tipo se for informado.
+## Getting Started
 
-**Resposta:** JSON [ { "id": 1, "nome": "Doação 1", "tipo": "Doação 1", "quantidade": 10, "doador": "Doador 1", "dataRecebimento": "2021-01-01", } ]
+### Requirements
 
-**Respostas de erro:**
-* 400 - tipo inválido;
-* 204 - nenhuma doação encontrada;
+To run the N3 Donation Management Application, you need the following technologies and setups:
 
-**GET /doacoes/{id}**
+- **Java Development Kit (JDK)**: Required to compile and run Java applications. (Java 23)
+- **PostgreSQL**: Relational database management system. Can be installed locally or used via a cloud service.
+- **Docker**: For running the PostgreSQL database service using Docker Compose.
+- **Git**: For version control and cloning the repository.
+- **Node.js and npm**: Optional, for frontend development and building tasks.
+- **IDE**: Integrated Development Environment (e.g., IntelliJ IDEA, Eclipse) for coding and debugging.
 
-- **Lista uma doação específica pelo id**.
+### Quickstart
 
-**Resposta:** JSON { "id": 1, "nome": "Doação 1", "tipo": "Doação 1", "quantidade": 10, "doador": "Doador 1", "dataRecebimento": "2021-01-01", }
+1. **Clone the Repository**:
+   ```sh
+   git clone https://github.com/your-repo/n3-donation-management.git
+   cd n3-donation-management
+   ```
 
-**Respostas de erro:**
-* 400 - id inválido;
-* 404 - doação não encontrada;
+2. **Set Up the Database**:
+   - Ensure Docker is installed and running.
+   - Start the PostgreSQL service using Docker Compose:
+     ```sh
+     docker-compose up -d
+     ```
+   - Verify the database is running:
+     ```sh
+     docker ps
+     ```
 
-**POST /doacoes**
+3. **Build and Run the Application**:
+   - Build the project using Gradle:
+     ```sh
+     ./gradlew build
+     ```
+   - Run the Spring Boot application:
+     ```sh
+     ./gradlew bootRun
+     ```
 
-- **Cadastra uma nova doação**.
+4. **Access the Application**:
+   - Open the Insomnia and interact with `http://localhost:8080/donation`.
 
-**Corpo da Requisição:** JSON { "nome": "Doação de Alimentos", "tipo": "Material", "quantidade": 50, "doador": "Doador X", "dataRecebimento": "2023-03-15", }
+### License
 
-**Corpo da Resposta:** JSON [ { "id": 1, "nome": "Doação de Alimentos", "tipo": "Material", "quantidade": 50, "doador": "Doador X", "dataRecebimento": "2023-03-15", } ]
+Copyright (c) 2024.
 
-**Respostas de erro:**
-* 400 - data de expiração inválida;
-* 400 - tempo de validade inválido;
-* 400 - tipo inválido;
-* 404 - doação não encontrada;
-* 409 - doação já cadastrada;
-
-**PATCH /doacoes/{id}**
-
-- **Atualiza as informações de uma doação específica pelo id**.
-
-**Corpo da Requisição:** JSON { "quantidade": 60, }
-
-**Corpo da Resposta:** JSON [ { "id": 1, "nome": "Doação de Alimentos", "tipo": "Material", "quantidade": 60, "doador": "Doador X", "dataRecebimento": "2023-03-15", } ]
-
-**Respostas de erro:**
-* 400 - id inválido;
-* 400 - data de expiração inválida;
-* 400 - tempo de validade inválido;
-* 400 - tipo inválido;
-* 404 - doação não encontrada;
-
-**DELETE /doacoes/{id}**
-
-- **Deleta uma doação específica pelo id**.
-
-**DELETE /doacoes/{id}**
-
-**Corpo da Resposta:** JSON [ { "id": 1, "nome": "Doação de Alimentos", "tipo": "Material", "quantidade": 60, "doador": "Doador X", "dataRecebimento": "2023-03-15", } ]
-
-**Respostas de erro:**
-* 400 - id inválido;
-* 404 - doação não encontrada;
-* 409 - doação em uso;
+This project is proprietary and not open source. All rights reserved.
