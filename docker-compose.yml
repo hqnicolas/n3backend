@@ -9,6 +9,10 @@ services:
       - "0.0.0.0:5439:5432"
 
   backend:
+    environment:
+      - 'SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/donation_db'
+      - 'SPRING_DATASOURCE_USERNAME=postgres'
+      - 'SPRING_DATASOURCE_PASSWORD=secret'
     image: backend
     build:
       context: .
