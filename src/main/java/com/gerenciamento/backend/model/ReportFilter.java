@@ -2,21 +2,26 @@ package com.gerenciamento.backend.model;
 
 import jakarta.validation.constraints.*;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
+@Getter
 @Data
 @NoArgsConstructor
 public class ReportFilter {
 
     @NotNull
     @PastOrPresent
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate startDate;
 
     @NotNull
     @FutureOrPresent
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate endDate;
 
     @NotBlank(message = "O tipo é obrigatório")
@@ -33,19 +38,4 @@ public class ReportFilter {
         this.donor = donor;
     }
 
-    public LocalDate getStartDate() {
-        return startDate;
-    }
-
-    public LocalDate getEndDate() {
-        return endDate;
-    }
-
-    public String getDonationType() {
-        return donationType;
-    }
-
-    public String getDonor() {
-        return donor;
-    }
 }

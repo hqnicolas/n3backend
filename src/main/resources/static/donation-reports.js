@@ -11,14 +11,15 @@ document.addEventListener('DOMContentLoaded', function () {
         const reportType = document.getElementById('reportType').value;
         const reportDonor = document.getElementById('reportDonor').value;
 
-        fetch('http://0.0.0.0:8080/report', {
+        fetch('http://0.0.0.0:8080/donation/reports/generate', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                dateRange: dateRange,
-                type: reportType,
+                startDate: dateRange.split(' - ')[0],
+                endDate: dateRange.split(' - ')[1],
+                donationType: reportType,
                 donor: reportDonor
             })
         })
@@ -53,14 +54,15 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     exportCsvButton.addEventListener('click', function () {
-        fetch('http://0.0.0.0:8080/report/csv', {
+        fetch('http://0.0.0.0:8080/donation/reports/csv', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                dateRange: document.getElementById('dateRange').value,
-                type: document.getElementById('reportType').value,
+                startDate: document.getElementById('dateRange').value.split(' - ')[0],
+                endDate: document.getElementById('dateRange').value.split(' - ')[1],
+                donationType: document.getElementById('reportType').value,
                 donor: document.getElementById('reportDonor').value
             })
         })
@@ -68,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (response.ok) {
                 return response.blob();
             } else {
-                throw new Error('Falha ao exportarCSV');
+                throw new Error('Falha ao exportar CSV');
             }
         })
         .then(blob => {
@@ -87,14 +89,15 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     exportPdfButton.addEventListener('click', function () {
-        fetch('http://0.0.0.0:8080/donation/report/pdf', {
+        fetch('http://0.0.0.0:8080/donation/reports/pdf', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                dateRange: document.getElementById('dateRange').value,
-                type: document.getElementById('reportType').value,
+                startDate: document.getElementById('dateRange').value.split(' - ')[0],
+                endDate: document.getElementById('dateRange').value.split(' - ')[1],
+                donationType: document.getElementById('reportType').value,
                 donor: document.getElementById('reportDonor').value
             })
         })
@@ -102,7 +105,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (response.ok) {
                 return response.blob();
             } else {
-                throw new Error('Falha ao exportarPDF');
+                throw new Error('Falha ao exportar PDF');
             }
         })
         .then(blob => {

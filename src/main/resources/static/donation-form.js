@@ -12,26 +12,22 @@ document.addEventListener('DOMContentLoaded', function () {
         const expiryDate = document.getElementById('expiryDate').value;
         const validityPeriod = document.getElementById('validityPeriod').value;
 
-        // Validation for Expiry Date
         if (new Date(expiryDate) < new Date()) {
             messages.innerHTML = '<div class="alert alert-danger">Data de validade não pode ser expirada!</div>';
             return;
         }
 
-        // Validation for Validity Period
         if (validityPeriod < 1 || validityPeriod > 999) {
             messages.innerHTML = '<div class="alert alert-danger">Data de validade deve ser menor que 3 anos.</div>';
             return;
         }
 
-        // Validation for Type
         const allowedTypes = ['Material', 'Financeira'];
         if (!allowedTypes.includes(type)) {
             messages.innerHTML = '<div class="alert alert-danger">As doações devem ser materiais ou financeiras.</div>';
             return;
         }
 
-        // Validation for Quantity
         if (quantity < 1) {
             messages.innerHTML = '<div class="alert alert-danger">A quantidade deve ser positiva!</div>';
             return;

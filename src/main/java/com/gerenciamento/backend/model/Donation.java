@@ -3,6 +3,8 @@ package com.gerenciamento.backend.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.Data;
+import lombok.Setter;
+
 import java.time.LocalDate;
 
 @Entity
@@ -27,6 +29,7 @@ public class Donation {
     @NotNull(message = "Data de recebimento é necessária")
     private LocalDate receivalDate;
 
+    @Setter
     @Future(message = "A data de validade deve ser no futuro")
     private LocalDate expiryDate;
 
@@ -39,7 +42,4 @@ public class Donation {
         this.expiryDate = this.receivalDate.plusDays(this.validityPeriod);
     }
 
-    public void setExpiryDate(LocalDate expiryDate) {
-        this.expiryDate = expiryDate;
-    }
 }

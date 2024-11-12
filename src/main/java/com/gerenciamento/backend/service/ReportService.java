@@ -29,6 +29,7 @@ public class ReportService {
     @Transactional(readOnly = true)
     public List<Donation> generateReport(ReportFilter reportFilter) {
         try {
+            System.out.println("Generating report with filter: " + reportFilter);
             List<Donation> donations = donationRepository.findAll();
 
             List<Donation> filteredDonations = donations.stream()
@@ -38,6 +39,7 @@ public class ReportService {
                     .filter(donation -> donation.getDonor().equalsIgnoreCase(reportFilter.getDonor()))
                     .collect(Collectors.toList());
 
+            System.out.println("Report generated with donations: " + filteredDonations);
             return filteredDonations;
         } catch (EntityNotFoundException e) {
             System.err.println("Erro ao gerar relatório: " + e.getMessage());
@@ -71,6 +73,7 @@ public class ReportService {
                 );
             }
             printer.flush();
+            System.out.println("CSV report exported successfully");
             return out.toByteArray();
         } catch (EntityNotFoundException e) {
             System.err.println("Erro ao exportar relatório como CSV: " + e.getMessage());
@@ -109,6 +112,7 @@ public class ReportService {
                 document.add(new Paragraph("\n"));
             }
             document.close();
+            System.out.println("PDF report exported successfully");
             return out.toByteArray();
         } catch (EntityNotFoundException e) {
             System.err.println("Erro ao exportar relatório como PDF: " + e.getMessage());
