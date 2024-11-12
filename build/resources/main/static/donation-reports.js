@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const reportType = document.getElementById('reportType').value;
         const reportDonor = document.getElementById('reportDonor').value;
 
-        fetch('http://0.0.0.0:8080/donation/reports', {
+        fetch('http://0.0.0.0:8080/report', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -47,13 +47,13 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         })
         .catch(error => {
-            console.error('Erro ao gerar relatório: ', error);
+            console.error('Erro ao gerar relatório:', error);
             messages.innerHTML = '<div class="alert alert-danger">' + error.message + '</div>';
         });
     });
 
     exportCsvButton.addEventListener('click', function () {
-        fetch('http://0.0.0.0:8080/donation/reports/csv', {
+        fetch('http://0.0.0.0:8080/report/csv', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (response.ok) {
                 return response.blob();
             } else {
-                throw new Error('Falha ao exportar CSV');
+                throw new Error('Falha ao exportarCSV');
             }
         })
         .then(blob => {
@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', function () {
             a.download = 'donation_report.csv';
             a.click();
             window.URL.revokeObjectURL(url);
-            console.log('CSV exportado com sucesso!');
+            console.log('CSV exportação bem-sucedida');
         })
         .catch(error => {
             console.error('Erro ao exportar CSV:', error);
@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     exportPdfButton.addEventListener('click', function () {
-        fetch('http://0.0.0.0:8080/donation/reports/pdf', {
+        fetch('http://0.0.0.0:8080/donation/report/pdf', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (response.ok) {
                 return response.blob();
             } else {
-                throw new Error('Falha ao exportar PDF');
+                throw new Error('Falha ao exportarPDF');
             }
         })
         .then(blob => {
@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', function () {
             a.download = 'donation_report.pdf';
             a.click();
             window.URL.revokeObjectURL(url);
-            console.log('PDF exportado com sucesso!');
+            console.log('PDF exportação bem-sucedida');
         })
         .catch(error => {
             console.error('Erro ao exportar PDF:', error);

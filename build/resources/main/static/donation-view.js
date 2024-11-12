@@ -1,19 +1,19 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const donationDetails = document.getElementById('donation-details');
-    const editDonationButton = document.getElementById('edit-donation');
-    const deleteDonationButton = document.getElementById('delete-donation');
+    const donationDetailsSection = document.getElementById('donation-details');
+    const editButton = document.getElementById('edit-button');
+    const deleteButton = document.getElementById('delete-button');
 
-    function showDonationDetails(id) {
-        fetch(`http://0.0.0.0:8080/donation/${id}`)
+    function showDonationDetails(donationId) {
+        fetch(`http://0.0.0.0:8080/${donationId}`)
             .then(response => {
                 if (response.ok) {
                     return response.json();
                 } else {
-                    throw new Error('Falha ao obter detalhes da doação');
+                    throw new Error('Falha ao buscar doação');
                 }
             })
             .then(donation => {
-                donationDetails.innerHTML = `
+                donationDetailsSection.innerHTML = `
                     <p><strong>Doação:</strong> ${donation.name}</p>
                     <p><strong>Tipo:</strong> ${donation.type}</p>
                     <p><strong>Quantidade:</strong> ${donation.quantity}</p>
@@ -24,27 +24,27 @@ document.addEventListener('DOMContentLoaded', function () {
                 `;
             })
             .catch(error => {
-                console.error('Erro ao obter detalhes da doação:', error);
-                donationDetails.innerHTML = `<div class="alert alert-danger">Falha ao obter detalhes da doação: ${error.message}</div>`;
+                console.error('Erro ao buscar doação:', error);
+                donationDetailsSection.innerHTML = '<div class="alert alert-danger">Falha ao buscar doação: ' + error.message + '</div>';
             });
     }
 
-    editDonationButton.addEventListener('click', function () {
+    editButton.addEventListener('click', function () {
         console.log('Botão de edição clicado');
         const id = 1;
         window.location.href = `#donation-edit?id=${id}`;
     });
 
-    deleteDonationButton.addEventListener('click', function () {
+    deleteButton.addEventListener('click', function () {
         const id = 1;
         if (confirm('Tem certeza de que deseja excluir esta doação?')) {
-            fetch(`http://0.0.0.0:8080/donation/${id}`, {
+            fetch(`http://0.0.0.0:8080/${id}`, {
                 method: 'DELETE'
             })
             .then(response => {
                 if (response.ok) {
                     console.log('Doação excluída com sucesso');
-                    donationDetails.innerHTML = `<div class="alert alert-success">Doação excluída com sucesso</div>`;
+                    donationDetailsSection.innerHTML = '<div class="alert alert-success">Doação excluída com sucesso</div>';
                     window.location.href = '#donation-list';
                 } else {
                     throw new Error('Falha ao excluir doação');
@@ -52,9 +52,10 @@ document.addEventListener('DOMContentLoaded', function () {
             })
             .catch(error => {
                 console.error('Erro ao excluir doação:', error);
-                donationDetails.innerHTML = `<div class="alert alert-danger">Falha ao excluir doação: ${error.message}</div>`;
+                donationDetailsSection.innerHTML = '<div class="alert alert-danger">Falha ao excluir doação: ' + error.message + '</div>';
             });
         }
     });
+
     showDonationDetails(1);
 });

@@ -16,19 +16,26 @@ document.addEventListener('DOMContentLoaded', function () {
             })
             .then(data => {
                 tableBody.innerHTML = '';
-                data.content.forEach(donation => {
-                    const row = `<tr>
-                        <td>${donation.name}</td>
-                        <td>${donation.type}</td>
-                        <td>${donation.quantity}</td>
-                        <td>${donation.donor}</td>
-                        <td>${donation.receivalDate}</td>
-                        <td>${donation.expiryDate}</td>
-                        <td>${donation.validityPeriod}</td>
-                    </tr>`;
-                    tableBody.innerHTML += row;
-                });
-                createPagination(data.totalPages);
+                if (Array.isArray(data)) {
+                    data.forEach(donation => {
+                        const row = `<tr>
+                            <td>${donation.name}</td>
+                            <td>${donation.type}</td>
+                            <td>${donation.quantity}</td>
+                            <td>${donation.donor}</td>
+                            <td>${donation.receivalDate}</td>
+                            <td>${donation.expiryDate}</td>
+                            <td>${donation.validityPeriod}</td>
+                        </tr>`;
+                        tableBody.innerHTML += row;
+                    });
+
+                    const totalPages = Math.ceil(data.length / pageSize);
+
+                    createPagination(totalPages);
+                } else {
+                    console.error('Resposta da API inválida:', data);
+                }
             })
             .catch(error => console.error('Erro ao buscar doações:', error));
     }
