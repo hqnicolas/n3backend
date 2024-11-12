@@ -37,5 +37,4 @@ public class ReportFilter {
         this.donationType = donationType;
         this.donor = donor;
     }
-
 }

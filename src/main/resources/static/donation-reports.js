@@ -5,11 +5,96 @@ document.addEventListener('DOMContentLoaded', function () {
     const exportCsvButton = document.getElementById('export-csv');
     const exportPdfButton = document.getElementById('export-pdf');
 
-    form.addEventListener('submit', function (event) {
+    function formatDate(dateString) {
+        const date = new Date(dateString);
+        return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+    }
+
+    function isValidDate(dateString) {
+        const date = new Date(dateString);
+        return date instanceof Date && !isNaN(date);
+    }
+
+    function downloadCsv(filter) {
+        fetch('http://0.0.0.0:8080/donation/reports/csv', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(filter)
+        })
+        .then(response => {
+            if (response.ok) {
+                return response.blob();
+            } else {
+                throw new Error('Falha ao exportar CSV');
+            }
+        })
+        .then(blob => {
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'donation_report.csv';
+            a.click();
+            window.URL.revokeObjectURL(url);
+            console.log('CSV exportação bem-sucedida');
+        })
+        .catch(error => {
+            console.error('Error exporting CSV:', error);
+            messages.innerHTML = '<div class="alert alert-danger">' + error.message + '</div>';
+        });
+    }
+
+    function downloadPdf(filter) {
+        fetch('http://0.0.0.0:8080/donation/reports/pdf', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(filter)
+        })
+        .then(response => {
+            if (response.ok) {
+                return response.blob();
+            } else {
+                throw new Error('Falha ao exportar PDF');
+            }
+        })
+        .then(blob => {
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'donation_report.pdf';
+            a.click();
+            window.URL.revokeObjectURL(url);
+            console.log('PDF exportação bem-sucedida');
+        })
+        .catch(error => {
+            console.error('Error exporting PDF:', error);
+            messages.innerHTML = '<div class="alert alert-danger">' + error.message + '</div>';
+        });
+    }
+
+    form.addEventListener('submit', (event) => {
         event.preventDefault();
         const dateRange = document.getElementById('dateRange').value;
         const reportType = document.getElementById('reportType').value;
         const reportDonor = document.getElementById('reportDonor').value;
+
+        if (!dateRange) {
+            messages.innerHTML = '<div class="alert alert-danger">A data de intervalo é necessária!</div>';
+            return;
+        }
+
+        const [startDate, endDate] = dateRange.split(' - ');
+
+        if (!isValidDate(startDate) || !isValidDate(endDate)) {
+            messages.innerHTML = '<div class="alert alert-danger">Datas inválidas. Por favor, verifique as datas de início e fim.</div>';
+            return;
+        }
+
+        const formattedStartDate = formatDate(startDate);
+        const formattedEndDate = formatDate(endDate);
 
         fetch('http://0.0.0.0:8080/donation/reports/generate', {
             method: 'POST',
@@ -17,8 +102,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                startDate: dateRange.split(' - ')[0],
-                endDate: dateRange.split(' - ')[1],
+                startDate: formattedStartDate,
+                endDate: formattedEndDate,
                 donationType: reportType,
                 donor: reportDonor
             })
@@ -31,7 +116,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         })
         .then(data => {
-            console.log('Relatório gerado com sucesso:', data);
+            console.log('Relatório gerado com sucesso', data);
             messages.innerHTML = '<div class="alert alert-success">Relatório gerado com sucesso!</div>';
             reportTableBody.innerHTML = '';
             data.forEach(donation => {
@@ -53,73 +138,49 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    exportCsvButton.addEventListener('click', function () {
-        fetch('http://0.0.0.0:8080/donation/reports/csv', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                startDate: document.getElementById('dateRange').value.split(' - ')[0],
-                endDate: document.getElementById('dateRange').value.split(' - ')[1],
-                donationType: document.getElementById('reportType').value,
-                donor: document.getElementById('reportDonor').value
-            })
-        })
-        .then(response => {
-            if (response.ok) {
-                return response.blob();
-            } else {
-                throw new Error('Falha ao exportar CSV');
-            }
-        })
-        .then(blob => {
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'donation_report.csv';
-            a.click();
-            window.URL.revokeObjectURL(url);
-            console.log('CSV exportação bem-sucedida');
-        })
-        .catch(error => {
-            console.error('Erro ao exportar CSV:', error);
-            messages.innerHTML = '<div class="alert alert-danger">' + error.message + '</div>';
+    exportCsvButton.addEventListener('click', () => {
+        const dateRange = document.getElementById('dateRange').value;
+        const reportType = document.getElementById('reportType').value;
+        const reportDonor = document.getElementById('reportDonor').value;
+
+        const [startDate, endDate] = dateRange.split(' - ');
+
+        if (!isValidDate(startDate) || !isValidDate(endDate)) {
+            messages.innerHTML = '<div class="alert alert-danger">Datas inválidas. Por favor, verifique as datas de início e fim.</div>';
+            return;
+        }
+
+        const formattedStartDate = formatDate(startDate);
+        const formattedEndDate = formatDate(endDate);
+
+        downloadCsv({
+            startDate: formattedStartDate,
+            endDate: formattedEndDate,
+            donationType: reportType,
+            donor: reportDonor
         });
     });
 
-    exportPdfButton.addEventListener('click', function () {
-        fetch('http://0.0.0.0:8080/donation/reports/pdf', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                startDate: document.getElementById('dateRange').value.split(' - ')[0],
-                endDate: document.getElementById('dateRange').value.split(' - ')[1],
-                donationType: document.getElementById('reportType').value,
-                donor: document.getElementById('reportDonor').value
-            })
-        })
-        .then(response => {
-            if (response.ok) {
-                return response.blob();
-            } else {
-                throw new Error('Falha ao exportar PDF');
-            }
-        })
-        .then(blob => {
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'donation_report.pdf';
-            a.click();
-            window.URL.revokeObjectURL(url);
-            console.log('PDF exportação bem-sucedida');
-        })
-        .catch(error => {
-            console.error('Erro ao exportar PDF:', error);
-            messages.innerHTML = '<div class="alert alert-danger">' + error.message + '</div>';
+    exportPdfButton.addEventListener('click', () => {
+        const dateRange = document.getElementById('dateRange').value;
+        const reportType = document.getElementById('reportType').value;
+        const reportDonor = document.getElementById('reportDonor').value;
+
+        const [startDate, endDate] = dateRange.split(' - ');
+
+        if (!isValidDate(startDate) || !isValidDate(endDate)) {
+            messages.innerHTML = '<div class="alert alert-danger">Datas inválidas. Por favor, verifique as datas de início e fim.</div>';
+            return;
+        }
+
+        const formattedStartDate = formatDate(startDate);
+        const formattedEndDate = formatDate(endDate);
+
+        downloadPdf({
+            startDate: formattedStartDate,
+            endDate: formattedEndDate,
+            donationType: reportType,
+            donor: reportDonor
         });
     });
 });
