@@ -11,7 +11,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 
 @RestController
 @RequestMapping("/donation")
@@ -25,14 +31,23 @@ public class DonationController {
     private ReportService reportService;
 
     @PostMapping
-    public ResponseEntity<Donation> registerDonation(@RequestBody Donation donation) {
-        System.out.println("Solicitação de registro de doação:" + donation);
+    public ResponseEntity<Map<String, String>> registerDonation(@RequestBody Donation donation) {
+        System.out.println("Solicitação de registro de doação recebida: " + donation);
         try {
+            System.out.println("Entrando no serviço de registro de doação");
             Donation createdDonation = donationService.registerDonation(donation);
-            System.out.println("Doação registrada com sucesso:" + createdDonation);
-            return new ResponseEntity<>(createdDonation, HttpStatus.CREATED);
+            System.out.println("Doação registrada com sucesso: " + createdDonation);
+            return new ResponseEntity<>(Collections.singletonMap("mensagem", "Doação registrada com sucesso!"), HttpStatus.CREATED);
+        } catch (ConstraintViolationException e) {
+            System.err.println("Validação falhou: " + e.getMessage());
+            Map<String, String> errors = new HashMap<>();
+            for (ConstraintViolation<?> violation : e.getConstraintViolations()) {
+                errors.put(violation.getPropertyPath().toString(), violation.getMessage());
+                System.err.println("Violation: " + violation.getPropertyPath() + " - " + violation.getMessage());
+            }
+            return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
-            System.err.println("Erro ao registrar doação:" + e.getMessage() + "- Rastreamento de pilha:" + e.getStackTrace());
+            System.err.println("Erro ao registrar doação: " + e.getMessage() + " - Rastreamento de pilha: " + e.getStackTrace());
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
@@ -115,8 +130,12 @@ public class DonationController {
             List<Donation> report = reportService.generateReport(reportFilter);
             System.out.println("Relatório gerado com sucesso:" + report);
             return new ResponseEntity<>(report, HttpStatus.OK);
+        } catch (EntityNotFoundException e) {
+            System.err.println("Erro ao gerar relatório: " + e.getMessage());
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         } catch (Exception e) {
-            System.err.println("Erro ao gerar relatório:" + e.getMessage() + "- Rastreamento de pilha:" + e.getStackTrace());
+            System.err.println("Erro ao gerar relatório: " + e.getMessage());
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
@@ -131,11 +150,14 @@ public class DonationController {
             return ResponseEntity.ok()
                     .header("Content-Disposition", "attachment; filename=donation_report.csv")
                     .body(csv);
-        } catch (Exception e) {
-            System.err.println("Erro ao exportar relatório como CSV: " + e.getMessage() + "- Rastreamento de pilha:" + e.getStackTrace());
+        } catch (EntityNotFoundException e) {
+            System.err.println("Erro ao exportar relatório como CSV: " + e.getMessage());
             e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(e.getMessage().getBytes());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        } catch (Exception e) {
+            System.err.println("Erro ao exportar relatório como CSV: " + e.getMessage());
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
 
@@ -148,11 +170,14 @@ public class DonationController {
             return ResponseEntity.ok()
                     .header("Content-Disposition", "attachment; filename=donation_report.pdf")
                     .body(pdf);
-        } catch (Exception e) {
-            System.err.println("Erro ao exportar relatório como PDF: " + e.getMessage() + "- Rastreamento de pilha:" + e.getStackTrace());
+        } catch (EntityNotFoundException e) {
+            System.err.println("Erro ao exportar relatório como PDF: " + e.getMessage());
             e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(e.getMessage().getBytes());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        } catch (Exception e) {
+            System.err.println("Erro ao exportar relatório como PDF: " + e.getMessage());
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
 }
