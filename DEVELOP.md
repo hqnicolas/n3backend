@@ -1,4 +1,4 @@
-# Manual de Implantação do Gerenciador de Doativos N3
+# Manual de Implantação do Gerenciador de Donativos N3
 
 
 ## 1. Clone o Repositório
