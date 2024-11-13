@@ -182,8 +182,7 @@ Este manual descreve todos os endpoints e funções da API do Gerenciador de Doa
   Content-Disposition: attachment; filename=donation_report.csv
   Content-Type: text/csv
 
-  "Nome,Tipo,Quantidade,Doador,Data de recebimento,Data de validade,Período de validade
-  Feijão Carioca - 60kg,Material,120,João Silva,2024-01-01,2024-12-31,365"
+  "Nome,Tipo,Quantidade,Doador,Data de recebimento,Data de validade,Período de validade Feijão Carioca - 60kg,Material,120,João Silva,2024-01-01,2024-12-31,365"
   ```
 
 ### 8. Exportar Relatório como PDF
