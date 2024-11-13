@@ -98,6 +98,11 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
+        if (new Date(startDate) > new Date(endDate)) {
+            messages.innerHTML = '<div class="alert alert-danger">A data de início não pode ser posterior à data de fim.</div>';
+            return;
+        }
+
         const formattedStartDate = formatDate(startDate);
         const formattedEndDate = formatDate(endDate);
 
@@ -155,6 +160,11 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
+        if (new Date(startDate) > new Date(endDate)) {
+            messages.innerHTML = '<div class="alert alert-danger">A data de início não pode ser posterior à data de fim.</div>';
+            return;
+        }
+
         const formattedStartDate = formatDate(startDate);
         const formattedEndDate = formatDate(endDate);
 
@@ -175,6 +185,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (!isValidDate(startDate) || !isValidDate(endDate)) {
             messages.innerHTML = '<div class="alert alert-danger">Datas inválidas. Por favor, verifique as datas de início e fim.</div>';
+            return;
+        }
+
+        if (new Date(startDate) > new Date(endDate)) {
+            messages.innerHTML = '<div class="alert alert-danger">A data de início não pode ser posterior à data de fim.</div>';
             return;
         }
 

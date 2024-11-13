@@ -135,12 +135,18 @@
             <div class="tab-pane fade" id="donation-view">
                 <h2>Visão detalhada da doação</h2>
                 <div id="donation-details"></div>
+                <div class="form-group">
+                    <label for="donation-id">ID da Doação</label>
+                    <input type="number" class="form-control" id="donation-id" placeholder="Ex: 12345">
+                </div>
+                <button id="consultar-button" class="btn btn-primary">Consultar</button>
                 <button id="edit-donation" class="btn btn-primary">Editar</button>
                 <button id="delete-donation" class="btn btn-danger">Excluir</button>
             </div>
             <div class="tab-pane fade" id="donation-edit">
                 <h2>Editar Doação</h2>
                 <form id="edit-donation-form">
+                    <input type="hidden" id="donation-id" name="donation-id">
                     <div class="form-group">
                         <label for="edit-name">Nome da Doação</label>
                         <input type="text" class="form-control" id="edit-name" required>

@@ -1,17 +1,66 @@
 document.addEventListener('DOMContentLoaded', function () {
     const form = document.getElementById('edit-donation-form');
     const messages = document.getElementById('edit-form-messages');
+    const donationIdInput = document.getElementById('donation-id');
+    const nameInput = document.getElementById('edit-name');
+    const typeInput = document.getElementById('edit-type');
+    const quantityInput = document.getElementById('edit-quantity');
+    const donorInput = document.getElementById('edit-donor');
+    const receivalDateInput = document.getElementById('edit-receivalDate');
+    const expiryDateInput = document.getElementById('edit-expiryDate');
+    const validityPeriodInput = document.getElementById('edit-validityPeriod');
+
+    if (!form || !messages || !donationIdInput || !nameInput || !typeInput || !quantityInput || !donorInput || !receivalDateInput || !expiryDateInput || !validityPeriodInput) {
+        console.error('One or more necessary DOM elements not found.');
+        return;
+    }
+
+    function getQueryParameter(param) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(param);
+    }
+
+    const donationId = getQueryParameter('id');
+    if (donationId) {
+        fetch(`http://0.0.0.0:8080/donation/${donationId}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error('Falha ao buscar doação');
+            }
+        })
+        .then(donation => {
+            donationIdInput.value = donation.id;
+            nameInput.value = donation.name;
+            typeInput.value = donation.type;
+            quantityInput.value = donation.quantity;
+            donorInput.value = donation.donor;
+            receivalDateInput.value = donation.receivalDate;
+            expiryDateInput.value = donation.expiryDate;
+            validityPeriodInput.value = donation.validityPeriod;
+        })
+        .catch(error => {
+            console.error('Erro ao buscar doação:', error);
+            messages.innerHTML = '<div class="alert alert-danger">Falha ao buscar doação: ' + error.message + '</div>';
+        });
+    }
 
     form.addEventListener('submit', function (event) {
         event.preventDefault();
-        const id = document.getElementById('donation-id').value;
-        const name = document.getElementById('edit-name').value;
-        const type = document.getElementById('edit-type').value;
-        const quantity = document.getElementById('edit-quantity').value;
-        const donor = document.getElementById('edit-donor').value;
-        const receivalDate = document.getElementById('edit-receivalDate').value;
-        const expiryDate = document.getElementById('edit-expiryDate').value;
-        const validityPeriod = document.getElementById('edit-validityPeriod').value;
+        const id = donationIdInput.value;
+        const name = nameInput.value;
+        const type = typeInput.value;
+        const quantity = quantityInput.value;
+        const donor = donorInput.value;
+        const receivalDate = receivalDateInput.value;
+        const expiryDate = expiryDateInput.value;
+        const validityPeriod = validityPeriodInput.value;
 
         if (new Date(expiryDate) < new Date()) {
             messages.innerHTML = '<div class="alert alert-danger">Data de validade não pode estar expirada!</div>';
@@ -19,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         if (validityPeriod < 1 || validityPeriod > 999) {
-            messages.innerHTML = '<div class="alert alert-danger">Periodo de validade deve ser menor que 3 anos</div>';
+            messages.innerHTML = '<div class="alert alert-danger">Período de validade deve ser menor que 3 anos</div>';
             return;
         }
 

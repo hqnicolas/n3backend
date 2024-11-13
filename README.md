@@ -1,6 +1,6 @@
 # N3 Gerenciador de Doativos
 
-[Manual de API do Gerenciador de Doativos](https://github.com/hqnicolas/n3backend/blob/main/api-manual.md)
+[Manual de API do Gerenciador de Doativos](https://github.com/hqnicolas/n3backend/blob/main/MANUAL.md)
 
 ## Resumo
 
