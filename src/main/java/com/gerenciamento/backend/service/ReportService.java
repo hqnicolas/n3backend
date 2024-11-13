@@ -52,7 +52,7 @@ public class ReportService {
             System.out.println("Relatório gerado com sucesso: " + report);
             return report;
         } catch (EntityNotFoundException e) {
-            System.err.println("ENtidade Não encontrada: " + e.getMessage());
+            System.err.println("Entidade Não encontrada: " + e.getMessage());
             e.printStackTrace();
             throw new RuntimeException("Erro ao gerar relatório", e);
         } catch (Exception e) {
@@ -89,7 +89,7 @@ public class ReportService {
             System.out.println("CSV relatório exportado com sucesso");
             return out.toByteArray();
         } catch (EntityNotFoundException e) {
-            System.err.println("ENtidade Não encontrada: " + e.getMessage());
+            System.err.println("Entidade Não encontrada: " + e.getMessage());
             e.printStackTrace();
             throw new EntityNotFoundException("Erro ao exportar relatório como CSV: " + e.getMessage(), e);
         } catch (Exception e) {
@@ -104,7 +104,7 @@ public class ReportService {
     @Transactional(readOnly = true)
     public byte[] exportReportAsPdf(ReportFilter filter) {
         try {
-            System.out.println("Exportado relatório como PDF Filtrado: " + filter);
+            System.out.println("Exportando relatório como PDF filtrado: " + filter);
             System.out.println("dataInicio: " + filter.getStartDate());
             System.out.println("dataFim: " + filter.getEndDate());
 

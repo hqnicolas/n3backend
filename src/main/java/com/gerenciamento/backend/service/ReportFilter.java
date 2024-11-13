@@ -6,7 +6,6 @@ import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.FutureOrPresent;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 
 import java.time.LocalDate;
 
@@ -28,7 +27,7 @@ public class ReportFilter {
     @NotBlank
     private String donor;
 
-    public ReportFilter(@NonNull LocalDate startDate, @NonNull LocalDate endDate, @NonNull String donationType, @NonNull String donor) {
+    public ReportFilter(@NotNull LocalDate startDate, @NotNull LocalDate endDate, @NotNull String donationType, @NotNull String donor) {
         this.startDate = startDate;
         this.endDate = endDate;
         this.donationType = donationType;

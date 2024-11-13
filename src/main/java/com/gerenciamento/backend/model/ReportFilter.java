@@ -4,8 +4,8 @@ import jakarta.validation.constraints.*;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 import org.springframework.format.annotation.DateTimeFormat;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 
@@ -16,12 +16,12 @@ public class ReportFilter {
 
     @NotNull
     @PastOrPresent
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate startDate;
 
     @NotNull
     @FutureOrPresent
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate endDate;
 
     @NotBlank(message = "O tipo é obrigatório")
@@ -31,7 +31,7 @@ public class ReportFilter {
     @NotBlank(message = "Doador é necessário")
     private String donor;
 
-    public ReportFilter(@NonNull LocalDate startDate, @NonNull LocalDate endDate, @NonNull String donationType, @NonNull String donor) {
+    public ReportFilter(@NotNull LocalDate startDate, @NotNull LocalDate endDate, @NotNull String donationType, @NotNull String donor) {
         this.startDate = startDate;
         this.endDate = endDate;
         this.donationType = donationType;
