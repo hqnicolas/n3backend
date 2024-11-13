@@ -206,30 +206,5 @@ Este manual descreve todos os endpoints e funções da API do Gerenciador de Doa
   Content-Type: application/pdf
   ```
 
-### 9. Lidar com Exceções Globais
-- **Requisição**:
-  ```http
-  POST http://0.0.0.0:8080/donation
-  Content-Type: application/json
-
-  {
-    "name": "Feijão Carioca - 50kg",
-    "type": "InvalidType",
-    "quantity": -1,
-    "donor": "João Silva",
-    "receivalDate": "2024-01-01",
-    "validityPeriod": 365
-  }
-  ```
-- **Resposta**:
-  ```http
-  HTTP/1.1 400 Bad Request
-  Content-Type: application/json
-
-  {
-    "type": "must be one of the allowed values (Material, Financeira)"
-  }
-  ```
-
 ## Conclusão
 Este manual fornece uma visão geral detalhada de todos os endpoints e funções da API do Gerenciador de Doativos. Use-o para facilitar o desenvolvimento, testes e integração com outros sistemas.
