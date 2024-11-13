@@ -1,4 +1,4 @@
-# N3 Gerenciador de Doativos
+# N3 Gerenciador de Donativos
 
 Manual de API: [Link](https://github.com/hqnicolas/n3backend/blob/main/MANUAL.md)
 
