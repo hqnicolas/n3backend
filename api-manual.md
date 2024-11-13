@@ -23,6 +23,7 @@ Siga as instruções e exemplos fornecidos para enviar Requisiçãos e receber R
 - **Requisição**:
   ```
   GET https://n3.acodes.com.br/donations
+  GET http://localhost:8080/donations
   ```
 - **Resposta**:
   ```json
@@ -44,6 +45,7 @@ Siga as instruções e exemplos fornecidos para enviar Requisiçãos e receber R
 - **Requisição**:
   ```
   POST https://n3.acodes.com.br/donations
+  POST http://localhost:8080/donations
   Corpo: application/json
   {
     "name": "Feijão Carioca - 50kg",
@@ -73,6 +75,7 @@ Siga as instruções e exemplos fornecidos para enviar Requisiçãos e receber R
 - **Requisição**:
   ```
   PUT https://n3.acodes.com.br/donations/1
+  PUT http://localhost:8080/donations/1
   Corpo: application/json
   {
     "name": "Calça Jeans Infantil",
@@ -102,6 +105,7 @@ Siga as instruções e exemplos fornecidos para enviar Requisiçãos e receber R
 - **Requisição**:
   ```
   DELETE https://n3.acodes.com.br/donations/1
+  DELETE http://localhost:8080/donations/1
   ```
 - **Resposta**:
   ```
@@ -112,6 +116,7 @@ Siga as instruções e exemplos fornecidos para enviar Requisiçãos e receber R
 - **Requisição**:
   ```
   POST https://n3.acodes.com.br/reports
+  POST http://localhost:8080/reports
   Corpo: application/json
   {
     "startDate": "2024-01-01",
