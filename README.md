@@ -2,6 +2,8 @@
 
 [Manual de API do Gerenciador de Doativos](https://github.com/hqnicolas/n3backend/blob/main/MANUAL.md)
 
+Templates Rest API: [Insomnia.har](https://github.com/hqnicolas/n3backend/blob/main/Insomnia.har) [Insomnia.json](https://github.com/hqnicolas/n3backend/blob/main/Insomnia.json) [Insomnia.yaml](https://github.com/hqnicolas/n3backend/blob/main/Insomnia.yaml)
+
 ## Resumo
 
 A `N3` consiste no design e implementação de uma API RESTful para processamento de requisições de um cliente HTTP.
