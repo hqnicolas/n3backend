@@ -1,8 +1,12 @@
 # N3 Gerenciador de Doativos
 
-[Manual de API do Gerenciador de Doativos](https://github.com/hqnicolas/n3backend/blob/main/MANUAL.md)
+Manual de API: [Link](https://github.com/hqnicolas/n3backend/blob/main/MANUAL.md)
+
+Manual de Instalação: [Link](https://github.com/hqnicolas/n3backend/blob/main/DEVELOP.md#manual-de-implanta%C3%A7%C3%A3o-do-gerenciador-de-doativos-n3)
 
 Templates Rest API: [Insomnia.har](https://github.com/hqnicolas/n3backend/blob/main/Insomnia.har) [Insomnia.json](https://github.com/hqnicolas/n3backend/blob/main/Insomnia.json) [Insomnia.yaml](https://github.com/hqnicolas/n3backend/blob/main/Insomnia.yaml)
+
+Manual do Desenvolvedor:  [Link](https://github.com/hqnicolas/n3backend/blob/main/DEVELOP.md#manual-de-desenvolvimento-do-gerenciador-de-doativos-n3)
 
 ## Resumo
 
