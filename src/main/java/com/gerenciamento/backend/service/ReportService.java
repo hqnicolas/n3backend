@@ -30,16 +30,16 @@ public class ReportService {
     @Transactional(readOnly = true)
     public List<Donation> generateReport(ReportFilter filter) {
         try {
-            System.out.println("Generating report with filter: " + filter);
-            System.out.println("startDate: " + filter.getStartDate());
-            System.out.println("endDate: " + filter.getEndDate());
+            System.out.println("Gerando relatório com filtro: " + filter);
+            System.out.println("dataInicio: " + filter.getStartDate());
+            System.out.println("dataFim: " + filter.getEndDate());
 
             if (filter.getStartDate() == null || filter.getEndDate() == null) {
-                throw new IllegalArgumentException("Start date and end date must not be null");
+                throw new IllegalArgumentException("A data de início e a data de término não devem ser nulas");
             }
 
             if (filter.getStartDate().isAfter(filter.getEndDate())) {
-                throw new IllegalArgumentException("Start date must be before or equal to end date");
+                throw new IllegalArgumentException("A data de início deve ser anterior ou igual à data de término");
             }
 
             List<Donation> report = donationRepository.findByReceivalDateBetweenAndTypeAndDonor(
@@ -49,14 +49,14 @@ public class ReportService {
                     filter.getDonor()
             );
 
-            System.out.println("Report generated successfully: " + report);
+            System.out.println("Relatório gerado com sucesso: " + report);
             return report;
         } catch (EntityNotFoundException e) {
-            System.err.println("Entity not found: " + e.getMessage());
+            System.err.println("ENtidade Não encontrada: " + e.getMessage());
             e.printStackTrace();
             throw new RuntimeException("Erro ao gerar relatório", e);
         } catch (Exception e) {
-            System.err.println("Error generating report: " + e.getMessage());
+            System.err.println("Erro ao gerar relatório: " + e.getMessage());
             e.printStackTrace();
             throw new RuntimeException("Erro ao gerar relatório", e);
         }
@@ -65,9 +65,9 @@ public class ReportService {
     @Transactional(readOnly = true)
     public byte[] exportReportAsCsv(ReportFilter filter) {
         try {
-            System.out.println("Exporting report as CSV with filter: " + filter);
-            System.out.println("startDate: " + filter.getStartDate());
-            System.out.println("endDate: " + filter.getEndDate());
+            System.out.println("Exportando o relatório como CSV filtrado: " + filter);
+            System.out.println("dataInicio: " + filter.getStartDate());
+            System.out.println("dataFim: " + filter.getEndDate());
 
             List<Donation> report = generateReport(filter);
 
@@ -86,10 +86,10 @@ public class ReportService {
                 );
             }
             printer.flush();
-            System.out.println("CSV report exported successfully");
+            System.out.println("CSV relatório exportado com sucesso");
             return out.toByteArray();
         } catch (EntityNotFoundException e) {
-            System.err.println("Entity not found: " + e.getMessage());
+            System.err.println("ENtidade Não encontrada: " + e.getMessage());
             e.printStackTrace();
             throw new EntityNotFoundException("Erro ao exportar relatório como CSV: " + e.getMessage(), e);
         } catch (Exception e) {
@@ -104,9 +104,9 @@ public class ReportService {
     @Transactional(readOnly = true)
     public byte[] exportReportAsPdf(ReportFilter filter) {
         try {
-            System.out.println("Exporting report as PDF with filter: " + filter);
-            System.out.println("startDate: " + filter.getStartDate());
-            System.out.println("endDate: " + filter.getEndDate());
+            System.out.println("Exportado relatório como PDF Filtrado: " + filter);
+            System.out.println("dataInicio: " + filter.getStartDate());
+            System.out.println("dataFim: " + filter.getEndDate());
 
             List<Donation> report = generateReport(filter);
 
@@ -130,10 +130,10 @@ public class ReportService {
                 document.add(new Paragraph("\n"));
             }
             document.close();
-            System.out.println("PDF report exported successfully");
+            System.out.println("PDF relatório exportado com sucesso");
             return out.toByteArray();
         } catch (EntityNotFoundException e) {
-            System.err.println("Entity not found: " + e.getMessage());
+            System.err.println("Entidade Não encontrada: " + e.getMessage());
             e.printStackTrace();
             throw new EntityNotFoundException("Erro ao exportar relatório como PDF: " + e.getMessage(), e);
         } catch (DocumentException e) {

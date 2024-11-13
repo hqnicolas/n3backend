@@ -24,8 +24,8 @@ public class ReportController {
     public ResponseEntity<List<Donation>> generateReport(@RequestBody ReportFilter filter) {
         try {
             System.out.println("Solicitação para gerar relatório com filtro: " + filter);
-            System.out.println("startDate: " + filter.getStartDate());
-            System.out.println("endDate: " + filter.getEndDate());
+            System.out.println("DataInicio: " + filter.getStartDate());
+            System.out.println("DataFim: " + filter.getEndDate());
             List<Donation> report = reportService.generateReport(filter);
             System.out.println("Relatório gerado com sucesso: " + report);
             return new ResponseEntity<>(report, HttpStatus.OK);
@@ -47,8 +47,8 @@ public class ReportController {
     public ResponseEntity<byte[]> exportReportAsCsv(@RequestBody ReportFilter filter) {
         try {
             System.out.println("Solicitar exportação do relatório como CSV com filtro: " + filter);
-            System.out.println("startDate: " + filter.getStartDate());
-            System.out.println("endDate: " + filter.getEndDate());
+            System.out.println("dataInicio: " + filter.getStartDate());
+            System.out.println("dataFim: " + filter.getEndDate());
             byte[] csv = reportService.exportReportAsCsv(filter);
             System.out.println("CSV relatório exportado com sucesso");
             return ResponseEntity.ok()
@@ -72,8 +72,8 @@ public class ReportController {
     public ResponseEntity<byte[]> exportReportAsPdf(@RequestBody ReportFilter filter) {
         try {
             System.out.println("Solicitar exportação do relatório como PDF com filtro: " + filter);
-            System.out.println("startDate: " + filter.getStartDate());
-            System.out.println("endDate: " + filter.getEndDate());
+            System.out.println("dataInicio: " + filter.getStartDate());
+            System.out.println("dataFim: " + filter.getEndDate());
             byte[] pdf = reportService.exportReportAsPdf(filter);
             System.out.println("PDF relatório exportado com sucesso");
             return ResponseEntity.ok()

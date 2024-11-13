@@ -35,7 +35,7 @@ public class DonationService {
         try {
             System.out.println("Obtendo doação por ID: " + id);
             return donationRepository.findById(id)
-                    .orElseThrow(() -> new EntityNotFoundException("Donation not found with id: " + id));
+                    .orElseThrow(() -> new EntityNotFoundException("id não encontrado: " + id));
         } catch (EntityNotFoundException e) {
             System.err.println("Erro Obtendo doação por ID: " + e.getMessage());
             throw e;
@@ -48,7 +48,7 @@ public class DonationService {
 
     public Donation updateDonation(Long id, Donation donation) {
         try {
-            System.out.println("Updating Donation by ID: " + id);
+            System.out.println("Atualizando Doação por ID: " + id);
             Donation existingDonation = getDonationById(id);
             existingDonation.setName(donation.getName());
             existingDonation.setType(donation.getType());

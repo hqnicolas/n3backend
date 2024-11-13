@@ -43,7 +43,7 @@ public class DonationController {
             Map<String, String> errors = new HashMap<>();
             for (ConstraintViolation<?> violation : e.getConstraintViolations()) {
                 errors.put(violation.getPropertyPath().toString(), violation.getMessage());
-                System.err.println("Violation: " + violation.getPropertyPath() + " - " + violation.getMessage());
+                System.err.println("Violação: " + violation.getPropertyPath() + " - " + violation.getMessage());
             }
             return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
         } catch (Exception e) {

@@ -36,12 +36,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
     editButton.addEventListener('click', function () {
         console.log('Botão de edição clicado');
-        const id = 1; // Update this to get the actual donation ID
+        const id = 1;
         window.location.href = `#donation-edit?id=${id}`;
     });
 
     deleteButton.addEventListener('click', function () {
-        const id = 1; // Update this to get the actual donation ID
+        const id = 1;
         if (confirm('Tem certeza de que deseja excluir esta doação?')) {
             fetch(`http://0.0.0.0:8080/donation/${id}`, {
                 method: 'DELETE'
