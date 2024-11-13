@@ -1,0 +1,288 @@
+_type: export
+__export_format: 4
+__export_date: 2024-11-13T16:37:59.145Z
+__export_source: insomnia.desktop.app:v10.1.1
+resources:
+  - _id: req_7747bd3d3a5f45cf80484e0d1c821f1d
+    parentId: fld_27ec568c846e4c529575d14dee2e4cd4
+    modified: 1731515664153
+    created: 1731463266680
+    url: http://0.0.0.0:8080/donation
+    name: Registrar uma nova doação
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "name": "Feijão Carioca - 50kg",
+          "type": "Material",
+          "quantity": 100,
+          "donor": "João Silva",
+          "receivalDate": "2024-01-01",
+          "validityPeriod": 365
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/10.1.1
+    authentication: {}
+    metaSortKey: -1731515316622
+    isPrivate: false
+    pathParameters: []
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_27ec568c846e4c529575d14dee2e4cd4
+    parentId: wrk_0853bd996cfa4309b2a8e4f090bec4ac
+    modified: 1731515786276
+    created: 1731463230875
+    name: N3
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1731463230875
+    _type: request_group
+  - _id: wrk_0853bd996cfa4309b2a8e4f090bec4ac
+    parentId: null
+    modified: 1731515828810
+    created: 1728868939438
+    name: N3-Donations
+    description: ""
+    scope: collection
+    _type: workspace
+  - _id: req_7c84ff3a15a941efbe664ad4110bc975
+    parentId: fld_27ec568c846e4c529575d14dee2e4cd4
+    modified: 1731515691189
+    created: 1731514966269
+    url: http://0.0.0.0:8080/donation/1
+    name: Recuperar Detalhes de uma Doação Específica
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - name: User-Agent
+        value: insomnia/10.1.1
+    authentication: {}
+    metaSortKey: -1731515316572
+    isPrivate: false
+    pathParameters: []
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_05655a24358e45a6ae3158f890093864
+    parentId: fld_27ec568c846e4c529575d14dee2e4cd4
+    modified: 1731515699752
+    created: 1731463236450
+    url: http://0.0.0.0:8080/donation?page=0&size=20
+    name: Recuperar a lista de todas as doações
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - name: User-Agent
+        value: insomnia/10.1.1
+    authentication: {}
+    metaSortKey: -1731515316547
+    isPrivate: false
+    pathParameters: []
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_ef199ae3edfd42438346ea1fc6aa8672
+    parentId: fld_27ec568c846e4c529575d14dee2e4cd4
+    modified: 1731515637637
+    created: 1731515316522
+    url: http://0.0.0.0:8080/donation/reports/pdf
+    name: Exportar Relatório como PDF
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "startDate": "2024-01-01",
+          "endDate": "2024-12-31",
+          "donationType": "Material",
+          "donor": "João Silva"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/10.1.1
+    authentication: {}
+    metaSortKey: -1731515316522
+    isPrivate: false
+    pathParameters: []
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_6cfda5362cdb4c1590c553730c367255
+    parentId: fld_27ec568c846e4c529575d14dee2e4cd4
+    modified: 1731515651942
+    created: 1731515242268
+    url: http://0.0.0.0:8080/donation/reports/csv
+    name: Exportar Relatório como CSV
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "startDate": "2024-01-01",
+          "endDate": "2024-12-31",
+          "donationType": "Material",
+          "donor": "João Silva"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/10.1.1
+    authentication: {}
+    metaSortKey: -1731515242268
+    isPrivate: false
+    pathParameters: []
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_a8d20921ed054e34b100ad2a83db8588
+    parentId: fld_27ec568c846e4c529575d14dee2e4cd4
+    modified: 1731515718880
+    created: 1731515009997
+    url: http://0.0.0.0:8080/donation/2
+    name: Atualizar uma Doação
+    description: ""
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "name": "Feijão Carioca - 60kg",
+          "type": "Material",
+          "quantity": 120,
+          "donor": "João Silva",
+          "receivalDate": "2024-01-01",
+          "expiryDate": "2024-12-31",
+          "validityPeriod": 365
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/10.1.1
+    authentication: {}
+    metaSortKey: -1731515209785.5
+    isPrivate: false
+    pathParameters: []
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_317c28da30294ad5a554af686408e9fc
+    parentId: fld_27ec568c846e4c529575d14dee2e4cd4
+    modified: 1731515724642
+    created: 1731515177303
+    url: http://0.0.0.0:8080/donation/reports/generate
+    name: Gerar um Relatório
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "startDate": "2024-01-01",
+          "endDate": "2024-12-31",
+          "donationType": "Material",
+          "donor": "João Silva"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/10.1.1
+    authentication: {}
+    metaSortKey: -1731515177303
+    isPrivate: false
+    pathParameters: []
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_3f19b46310ab48649a1c1fea95418a7b
+    parentId: fld_27ec568c846e4c529575d14dee2e4cd4
+    modified: 1731515730802
+    created: 1731515069284
+    url: http://0.0.0.0:8080/donation/2
+    name: Excluir uma Doação
+    description: ""
+    method: DELETE
+    body: {}
+    parameters: []
+    headers:
+      - name: User-Agent
+        value: insomnia/10.1.1
+    authentication: {}
+    metaSortKey: -1731515069284
+    isPrivate: false
+    pathParameters: []
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: env_549181994f8e2450db8fe6ea7eb093e156510c91
+    parentId: wrk_0853bd996cfa4309b2a8e4f090bec4ac
+    modified: 1728868939441
+    created: 1728868939441
+    name: Base Environment
+    data: {}
+    dataPropertyOrder: null
+    color: null
+    isPrivate: false
+    metaSortKey: 1728868939441
+    _type: environment
+  - _id: jar_549181994f8e2450db8fe6ea7eb093e156510c91
+    parentId: wrk_0853bd996cfa4309b2a8e4f090bec4ac
+    modified: 1728868939443
+    created: 1728868939443
+    name: Default Jar
+    cookies: []
+    _type: cookie_jar
