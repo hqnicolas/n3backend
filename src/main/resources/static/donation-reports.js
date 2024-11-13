@@ -5,6 +5,11 @@ document.addEventListener('DOMContentLoaded', function () {
     const exportCsvButton = document.getElementById('export-csv');
     const exportPdfButton = document.getElementById('export-pdf');
 
+    if (!form || !messages || !reportTableBody || !exportCsvButton || !exportPdfButton) {
+        console.error('One or more necessary DOM elements not found.');
+        return;
+    }
+
     function formatDate(dateString) {
         const date = new Date(dateString);
         return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;

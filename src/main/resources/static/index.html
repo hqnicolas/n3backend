@@ -20,6 +20,12 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#donation-reports" data-bs-toggle="tab">Relatórios de Doações</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#donation-view" data-bs-toggle="tab">Visão detalhada da doação</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#donation-edit" data-bs-toggle="tab">Editar Doação</a>
+                </li>
             </ul>
         </nav>
         <div class="tab-content">
@@ -28,7 +34,7 @@
                 <form id="donation-form">
                     <div class="form-group">
                         <label for="name">Nome da Doação</label>
-                        <input type="text" class="form-control" id="name" required>
+                        <input type="text" class="form-control" id="name" placeholder="Ex: Livro de Matemática" required>
                     </div>
                     <div class="form-group">
                         <label for="type">Tipo de Doação</label>
@@ -39,23 +45,23 @@
                     </div>
                     <div class="form-group">
                         <label for="quantity">Quantidade</label>
-                        <input type="number" class="form-control" id="quantity" min="1" required>
+                        <input type="number" class="form-control" id="quantity" min="1" placeholder="Ex: 1" required>
                     </div>
                     <div class="form-group">
                         <label for="donor">Doador(a)</label>
-                        <input type="text" class="form-control" id="donor" required>
+                        <input type="text" class="form-control" id="donor" placeholder="Ex: João Silva" required>
                     </div>
                     <div class="form-group">
                         <label for="receivalDate">Data de recebimento</label>
-                        <input type="date" class="form-control" id="receivalDate" required>
+                        <input type="date" class="form-control" id="receivalDate" placeholder="Ex: 2023-10-01" required>
                     </div>
                     <div class="form-group">
                         <label for="expiryDate">Data de Validade</label>
-                        <input type="date" class="form-control" id="expiryDate" required>
+                        <input type="date" class="form-control" id="expiryDate" placeholder="Ex: 2024-10-01" required>
                     </div>
                     <div class="form-group">
                         <label for="validityPeriod">Período de validade (dias)</label>
-                        <input type="number" class="form-control" id="validityPeriod" min="1" max="999" required>
+                        <input type="number" class="form-control" id="validityPeriod" min="1" max="999" placeholder="Ex: 365" required>
                     </div>
                     <button type="submit" class="btn btn-primary">Enviar</button>
                 </form>
@@ -88,8 +94,8 @@
                 <h2>Relatórios de Doações</h2>
                 <form id="report-form">
                     <div class="form-group">
-                        <label for="dateRange">Á partir de</label>
-                        <input type="text" class="form-control" id="dateRange">
+                        <label for="dateRange">Intervalo de Data (ex: 2023-10-01 - 2023-10-31)</label>
+                        <input type="text" class="form-control" id="dateRange" placeholder="Ex: 2023-10-01 - 2023-10-31">
                     </div>
                     <div class="form-group">
                         <label for="reportType">Tipo de Doação</label>
@@ -101,7 +107,7 @@
                     </div>
                     <div class="form-group">
                         <label for="reportDonor">Doador</label>
-                        <input type="text" class="form-control" id="reportDonor">
+                        <input type="text" class="form-control" id="reportDonor" placeholder="Ex: João Silva">
                     </div>
                     <button type="submit" class="btn btn-primary">Gerar Relatório</button>
                 </form>
