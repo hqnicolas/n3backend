@@ -15,7 +15,133 @@ Este manual descreve todos os endpoints e funções da API do Gerenciador de Doa
 3. Para Requisições POST, PUT e DELETE, adicione o Corpo de Requisição no formato JSON.
 4. Envie a Requisição e observe a resposta.
 
-## Exemplos de Requisições e Respostas
+
+---
+## Documentação CRUD Mensagens
+
+### 1. Criar uma Nova Mensagem
+*Endpoint:* POST /api/mensagens
+
+*Descrição:* Cria uma nova mensagem.
+
+*Request Body:*
+``` json
+{
+    "remetenteId": 1,
+    "conteudo": "Conteúdo da mensagem",
+    "dataEnvio": "2024-11-14T21:38:00Z"
+}
+```
+
+*Response:*
+- Status 201 Created
+```` json
+{
+    "id": 1,
+    "remetenteId": 1,
+    "conteudo": "Conteúdo da mensagem",
+    "dataEnvio": "2024-11-14T21:38:00Z"
+}
+````
+
+### 2. Obter Todas as Mensagens
+*Endpoint:* GET /api/mensagens
+
+*Descrição:* Retorna todas as mensagens com o conteúdo e a data de envio.
+
+*Response:*
+- Status 200 OK
+````json
+[
+    {
+        "conteudo": "Conteúdo da mensagem 1",
+        "dataEnvio": "2024-11-14T21:38:00Z"
+    },
+    {
+        "conteudo": "Conteúdo da mensagem 2",
+        "dataEnvio": "2024-11-14T21:39:00Z"
+    }
+]
+````
+
+### 3. Obter uma Mensagem por ID
+*Endpoint:* GET /api/mensagens/{id}
+
+*Descrição:* Retorna uma mensagem específica pelo ID com o conteúdo e a data de envio.
+
+*Path Parameter:*
+- id (integer): ID da mensagem.
+
+*Response:*
+- Status 200 OK
+````json
+{
+    "conteudo": "Conteúdo da mensagem",
+    "dataEnvio": "2024-11-14T21:38:00Z"
+}
+````
+
+- Status 404 Not Found
+```json
+{
+  "message": "Mensagem não encontrada"
+}
+```
+
+### 4. Atualizar uma Mensagem
+*Endpoint:* PUT /api/mensagens/{id}
+
+*Descrição:* Atualiza uma mensagem existente.
+
+*Path Parameter:*
+- id (integer): ID da mensagem.
+
+*Request Body:*
+````json
+{
+    "remetenteId": 1,
+    "conteudo": "Conteúdo atualizado da mensagem",
+    "dataEnvio": "2024-11-14T21:38:00Z"
+}
+````
+
+*Response:*
+- Status 200 OK
+````json
+{
+    "id": 1,
+    "remetenteId": 1,
+    "conteudo": "Conteúdo atualizado da mensagem",
+    "dataEnvio": "2024-11-14T21:38:00Z"
+}
+````
+
+- Status 404 Not Found
+````json
+{
+  "message": "Mensagem não encontrada"
+}
+````
+
+### 5. Deletar uma Mensagem
+*Endpoint:* DELETE /api/mensagens/{id}
+
+*Descrição:* Deleta uma mensagem existente.
+
+*Path Parameter:*
+- id (integer): ID da mensagem.
+
+*Response:*
+- Status 204 No Content
+- Status 404 Not Found
+
+````json
+{
+    "message": "Mensagem não encontrada"
+}
+````
+
+## Documentação CRUD Doações
 
 ### 1. Registrar uma Nova Doação
 - **Requisição**:
