@@ -28,7 +28,9 @@ docker compose build
 ```sh
 docker compose up
 ```
-
+---
+---
+---
 
 # Manual de Desenvolvimento do Gerenciador de Doativos N3
 
