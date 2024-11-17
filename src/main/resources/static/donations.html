@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donations</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="messages.html">Messages</a></li>
+                <li><a href="users.html">Users</a></li>
+                <li><a href="reports.html">Reports</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main class="container">
+        <h1>Donations</h1>
+        <button id="load-donations-btn">Load Donations</button>
+        <div id="donations-container"></div>
+        <table class="table table-striped" id="donations-table">
+            <!-- table content will be loaded here -->
+        </table>
+    </main>
+    <script src="script.js"></script>
+    <script>
+        document.getElementById('load-donations-btn').addEventListener('click', loadDonations);
+
+        function loadDonations() {
+            fetch('http://localhost:8080/donation')
+                .then(response => {
+                    console.log('Donations response:', response);
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        return response.text().then(text => {
+                            console.log('Donations response body:', text);
+                            throw new Error(`Error loading donations: ${response.statusText}`);
+                        });
+                    }
+                })
+                .then(data => {
+                    console.log('Donations data:', data);
+                    const donationsHtml = data.map(donation => `
+                        <tr>
+                            <td>${donation.name}</td>
+                            <td>${donation.type}</td>
+                            <td>${donation.quantity}</td>
+                            <td>${donation.donor}</td>
+                            <td>${donation.receiverDate}</td>
+                            <td>${donation.expiryDate}</td>
+                            <td>${donation.validityPeriod}</td>
+                        </tr>
+                    `).join('');
+                    document.getElementById('donations-table').innerHTML = `
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Type</th>
+                                <th>Quantity</th>
+                                <th>Donor</th>
+                                <th>Receiver Date</th>
+                                <th>Expiry Date</th>
+                                <th>Validity Period</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${donationsHtml}
+                        </tbody>
+                    `;
+                })
+                .catch(error => console.error('Error loading donations:', error));
+        }
+    </script>
+</body>
+</html>

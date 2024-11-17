@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" href="donations.html">Donations</a></li>
+                <li class="nav-item"><a class="nav-link" href="messages.html">Messages</a></li>
+                <li class="nav-item"><a class="nav-link" href="users.html">Users</a></li>
+                <li class="nav-item"><a class="nav-link" href="reports.html">Reports</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main class="container">
+        <h1>Reports</h1>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#report-modal">Generate Report</button>
+        <div id="report-container"></div>
+    </main>
+    <div class="modal fade" id="report-modal" tabindex="-1" aria-labelledby="report-modal-label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="report-modal-label">Generate Report</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="report-form">
+                        <label for="start-date">Start Date:</label>
+                        <input type="date" id="start-date" name="start-date">
+                        <label for="end-date">End Date:</label>
+                        <input type="date" id="end-date" name="end-date">
+                        <label for="type">Type:</label>
+                        <select id="type" name="type">
+                            <option value="Material">Material</option>
+                            <option value="Financeiro">Financeiro</option>
+                        </select>
+                        <label for="donor">Donor:</label>
+                        <input type="text" id="donor" name="donor">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="generate-report">Generate Report</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+    <script>
+        const reportForm = document.getElementById('report-form');
+        const reportContainer = document.getElementById('report-container');
+        const generateReportButton = document.getElementById('generate-report');
+
+        generateReportButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            const startDate = document.getElementById('start-date').value;
+            const endDate = document.getElementById('end-date').value;
+            const type = document.getElementById('type').value;
+            const donor = document.getElementById('donor').value;
+
+            fetch(`http://localhost:8080/donation/reports/generate`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    startDate,
+                    endDate,
+                    type,
+                    donor
+                })
+            })
+            .then(response => {
+                console.log('Reports response:', response);
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    return response.text().then(text => {
+                        console.log('Reports response body:', text);
+                        throw new Error(`Error loading reports: ${response.statusText}`);
+                    });
+                }
+            })
+            .then(data => {
+                console.log('Reports data:', data);
+                const reportHtml = data.map(report => `
+                    <div>
+                        <h2>${report.name}</h2>
+                        <p>Type: ${report.type}</p>
+                        <p>Quantity: ${report.quantity}</p>
+                        <p>Donor: ${report.donor}</p>
+                        <p>Receiver Date: ${report.receiverDate}</p>
+                        <p>Expiry Date: ${report.expiryDate}</p>
+                        <p>Validity Period: ${report.validityPeriod}</p>
+                    </div>
+                `).join('');
+                reportContainer.innerHTML = reportHtml;
+            })
+            .catch(error => {
+                console.error('Error loading reports:', error);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messages</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <ul>
+                <li><a href="donations.html">Donations</a></li>
+                <li><a href="messages.html">Messages</a></li>
+                <li><a href="users.html">Users</a></li>
+                <li><a href="reports.html">Reports</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main class="container" id="messages-container">
+        <!-- messages will be loaded here -->
+    </main>
+    <script src="script.js"></script>
+    <script>
+        // load messages page
+        function loadMessages() {
+            console.log('Loading messages...');
+            fetch('http://localhost:8080/api/mensagens')
+                .then(response => {
+                    console.log('Messages response:', response);
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        return response.text().then(text => {
+                            console.log('Messages response body:', text);
+                            throw new Error(`Error loading messages: ${response.statusText}`);
+                        });
+                    }
+                })
+                .then(data => {
+                    console.log('Messages data:', data);
+                    const messagesHtml = data.map(message => `
+                        <div>
+                            <h2>${message.remetenteId}</h2>
+                            <p>Content: ${message.conteudo}</p>
+                            <p>Send Date: ${message.dataEnvio}</p>
+                        </div>
+                    `).join('');
+                    document.getElementById('messages-container').innerHTML = messagesHtml;
+                })
+                .catch(error => {
+                    console.error('Error loading messages:', error);
+                });
+        }
+
+        loadMessages();
+    </script>
+</body>
+</html>
