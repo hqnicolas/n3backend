@@ -1,5 +1,4 @@
 package com.gerenciamento.backend.model;
-
 import jakarta.validation.constraints.*;
 import lombok.Data;
 import lombok.Getter;

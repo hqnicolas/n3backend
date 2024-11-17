@@ -4,16 +4,39 @@ document.addEventListener('DOMContentLoaded', function () {
     const pageSize = 20;
     let currentPage = 0;
 
+
+
+    fetch('http://0.0.0.0:8080/donation', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            name: name,
+            type: type,
+            quantity: quantity,
+            donor: donor,
+            receiverDate: receiverDate,
+            expiryDate: expiryDate,
+            validityPeriod: validityPeriod
+        })
+    })
+
     function fetchDonations(page = 0, size = pageSize) {
         console.log(`Buscando doações para a página ${page} com tamanho: ${size}`);
-        fetch(`http://0.0.0.0:8080/donation?page=${page}&size=${size}`)
-            .then(response => {
-                if (response.ok) {
-                    return response.json();
-                } else {
-                    throw new Error('Falha ao buscar doações!');
-                }
-            })
+        fetch(`http://0.0.0.0:8080/donation?page=${page}&size=${size}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },   
+        })
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error('Falha ao buscar doações!');
+            }
+        })
             .then(data => {
                 tableBody.innerHTML = '';
                 if (Array.isArray(data)) {
@@ -23,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             <td>${donation.type}</td>
                             <td>${donation.quantity}</td>
                             <td>${donation.donor}</td>
-                            <td>${donation.receivalDate}</td>
+                            <td>${donation.receiverDate}</td>
                             <td>${donation.expiryDate}</td>
                             <td>${donation.validityPeriod}</td>
                         </tr>`;

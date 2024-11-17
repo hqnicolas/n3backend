@@ -1,5 +1,4 @@
 package com.gerenciamento.backend.model;
-
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import java.util.Date;
@@ -27,7 +26,6 @@ public class Mensagem {
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataEnvio;
 
-    // Getters and Setters
     public int getId() {
         return id;
     }

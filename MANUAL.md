@@ -1,4 +1,4 @@
-# Manual de API do Gerenciador de Doativos
+# Manual da API - Sistema de Gerenciamento de Doações
 
 ## Introdução
 Este manual descreve todos os endpoints e funções da API do Gerenciador de Doativos, facilitando o uso com clientes REST API como Postman ou Insomnia. Siga as instruções e exemplos fornecidos para enviar Requisições e receber Respostas.
@@ -15,12 +15,145 @@ Este manual descreve todos os endpoints e funções da API do Gerenciador de Doa
 3. Para Requisições POST, PUT e DELETE, adicione o Corpo de Requisição no formato JSON.
 4. Envie a Requisição e observe a resposta.
 
+**API Endpoints**
+
+* **doação Endpoints**
+`POST /donation`: Registre uma nova doação
+`GET /donation`: Obtenha uma lista de todas as doações
+`GET /donation/{id}`: Obtenha uma doação específica por ID
+`PUT /donation/{id}`: Atualize uma doação específica
+`DELETE /donation/{id}`: Exclua uma doação específica
+**relatório Endpoints**
+`POST /reports/generate`: Gere um relatório com base em filtros específicos
+`POST /reports/csv`: Exporte um relatório como um arquivo CSV
+`POST /reports/pdf`: Exporte um relatório como um arquivo PDF
+**usuário Endpoints**
+`POST /users`: Crie um novo usuário
+`GET /users`: Obtenha uma lista de todos os usuários
+`GET /users/{id}`: Obtenha um usuário específico por ID
+`PUT /users/{id}`: Atualiza um usuário específico
+`DELETE /users/{id}`: Exclui um usuário específico
+**mensagem Endpoints**
+`POST /messages`: Cria uma nova mensagem
+`GET /messages`: Obtém uma lista de todas as mensagens
+`GET /messages/{id}`: Obtém uma mensagem específica por ID
+`PUT /messages/{id}`: Atualiza uma mensagem específica
+`DELETE /messages/{id}`: Exclui uma mensagem específica
 
 ---
-## Documentação CRUD Mensagens
+
+# Documentação CRUD Doações
+
+## 1. Criar uma Doação
+*Endpoint:* POST /doacao
+
+*Descrição:* Registra uma nova doação.
+
+*Request Body:*
+```json
+{
+    "name": "Nome da Doação",
+    "type": "Material", // Ou "Financeiro"
+    "quantity": 100,
+    "donor": "João Silva",
+    "receiverDate": "2024-11-14",
+    "expiryDate": "2025-11-14",
+    "validityPeriod": 12
+}
+```
+
+*Response:*
+- Status 201 Created
+```json
+{
+    "id": 1,
+    "name": "Nome da Doação",
+    "type": "Material",
+    "quantity": 100,
+    "donor": "Maria Caetana",
+    "receiverDate": "2024-11-14",
+    "expiryDate": "2025-11-14",
+    "validityPeriod": 12
+}
+```
+
+## 2. Obter Todas as Doações
+*Endpoint:* GET /doacao
+
+*Descrição:* Retorna uma lista de todas as doações registradas.
+
+*Response:*
+- Status 200 OK
+```json
+[
+    {
+        "id": 1,
+        "name": "Nome da Doação",
+        "type": "Material",
+        "quantity": 100,
+        "donor": "João Silva",
+        "receiverDate": "2024-11-14",
+        "expiryDate": "2025-11-14",
+        "validityPeriod": 12
+    }
+]
+```
+
+## 3. Gerar Relatório de Doações
+*Endpoint:* POST /relatorio
+
+*Descrição:* Gera um relatório com base nos parâmetros fornecidos.
+
+*Request Body:*
+```json
+{
+    "startDate": "2024-01-01",
+    "endDate": "2024-12-31",
+    "type": "Material", // ou "Financeiro"
+    "donor": "João Silva"
+}
+```
+
+*Response:*
+- Status 200 OK
+```json
+[
+    {
+        "id": 1,
+        "name": "Nome da Doação",
+        "type": "Material",
+        "quantity": 100,
+        "donor": "João Silva",
+        "receiverDate": "2024-11-14",
+        "expiryDate": "2025-11-14",
+        "validityPeriod": 12
+    }
+]
+```
+
+## 4. Exportar Relatório
+*Endpoint:* GET /relatorio/exportar
+
+*Descrição:* Exporta o relatório gerado em formatos CSV ou PDF.
+
+*Query Parameters:*
+- format: "csv" ou "pdf"
+
+*Response:*
+- Status 200 OK (com download do arquivo)
+```json
+{
+    "message": "Relatório exportado com sucesso"
+}
+```
+
+
+---
+
+# Documentação CRUD Mensagens
 
 ### 1. Criar uma Nova Mensagem
-*Endpoint:* POST /api/mensagens
+*Endpoint:* POST /mensagens
 
 *Descrição:* Cria uma nova mensagem.
 
@@ -45,7 +178,7 @@ Este manual descreve todos os endpoints e funções da API do Gerenciador de Doa
 ````
 
 ### 2. Obter Todas as Mensagens
-*Endpoint:* GET /api/mensagens
+*Endpoint:* GET /mensagens
 
 *Descrição:* Retorna todas as mensagens com o conteúdo e a data de envio.
 
@@ -65,7 +198,7 @@ Este manual descreve todos os endpoints e funções da API do Gerenciador de Doa
 ````
 
 ### 3. Obter uma Mensagem por ID
-*Endpoint:* GET /api/mensagens/{id}
+*Endpoint:* GET /mensagens/{id}
 
 *Descrição:* Retorna uma mensagem específica pelo ID com o conteúdo e a data de envio.
 
@@ -89,7 +222,7 @@ Este manual descreve todos os endpoints e funções da API do Gerenciador de Doa
 ```
 
 ### 4. Atualizar uma Mensagem
-*Endpoint:* PUT /api/mensagens/{id}
+*Endpoint:* PUT /mensagens/{id}
 
 *Descrição:* Atualiza uma mensagem existente.
 
@@ -124,7 +257,7 @@ Este manual descreve todos os endpoints e funções da API do Gerenciador de Doa
 ````
 
 ### 5. Deletar uma Mensagem
-*Endpoint:* DELETE /api/mensagens/{id}
+*Endpoint:* DELETE /mensagens/{id}
 
 *Descrição:* Deleta uma mensagem existente.
 
@@ -141,195 +274,163 @@ Este manual descreve todos os endpoints e funções da API do Gerenciador de Doa
 }
 ````
 
-## Documentação CRUD Doações
+---
 
-### 1. Registrar uma Nova Doação
-- **Requisição**:
-  ```http
-  POST http://0.0.0.0:8080/donation
-  Content-Type: application/json
+# Documentação CRUD Usuários
 
-  {
-    "name": "Feijão Carioca - 50kg",
-    "type": "Material",
-    "quantity": 100,
-    "donor": "João Silva",
-    "receivalDate": "2024-01-01",
-    "validityPeriod": 365
-  }
-  ```
-- **Resposta**:
-  ```http
-  HTTP/1.1 201 Created
-  Content-Type: application/json
 
-  {
-    "mensagem": "Doação registrada com sucesso!"
-  }
-  ```
+### 1. Crie um novo usuário
 
-### 2. Recuperar a Lista de Todas as Doações
-- **Requisição**:
-  ```http
-  GET http://0.0.0.0:8080/donation?page=0&size=20
-  ```
-- **Resposta**:
-  ```http
-  HTTP/1.1 200 OK
-  Content-Type: application/json
 
-  [
-    {
-      "id": 1,
-      "name": "Feijão Carioca - 50kg",
-      "type": "Material",
-      "quantity": 100,
-      "donor": "João Silva",
-      "receivalDate": "2024-01-01",
-      "expiryDate": "2024-12-31",
-      "validityPeriod": 365
-    }
-  ]
-  ```
+*Endpoint:* POST /users
 
-### 3. Recuperar Detalhes de uma Doação Específica
-- **Requisição**:
-  ```http
-  GET http://0.0.0.0:8080/donation/1
-  ```
-- **Resposta**:
-  ```http
-  HTTP/1.1 200 OK
-  Content-Type: application/json
 
+* Exemplo de requisição:
+```
+{
+  "name": "João Silva",
+  "email": "joao.silva@gmail.com",
+  "password": "senha123",
+  "dateOfBirth": "1990-01-01",
+  "gender": "Masculino",
+  "location": "São Paulo",
+  "preferences": "Esportes",
+  "biography": "Sou um desenvolvedor de software",
+  "photos": "https://facebook.com/foto.jpg",
+  "interests": "Música"
+}
+```
+* Exemplo de resposta:
+```json
+{
+	"mensagem": "Usuário criado com sucesso!"
+}
+```
+
+### Obtenha uma lista de todos os usuários
+
+*Endpoint:* GET /users
+
+
+* Exemplo de requisição:
+```bash
+GET /users
+```
+* Exemplo de resposta:
+```json
+[
   {
     "id": 1,
-    "name": "Feijão Carioca - 50kg",
-    "type": "Material",
-    "quantity": 100,
-    "donor": "João Silva",
-    "receivalDate": "2024-01-01",
-    "expiryDate": "2024-12-31",
-    "validityPeriod": 365
-  }
-  ```
-
-### 4. Atualizar uma Doação
-- **Requisição**:
-  ```http
-  PUT http://0.0.0.0:8080/donation/1
-  Content-Type: application/json
-
+    "name": "João Silva",
+    "email": "joao.silva@gmail.com",
+    "password": "senha123",
+    "dateOfBirth": "1990-01-01",
+    "gender": "Masculino",
+    "location": "São Paulo",
+    "preferences": "Esportes",
+    "biography": "Sou um desenvolvedor de software",
+    "photos": "https://facebook.com/foto.jpg",
+    "interests": "Música"
+  },
   {
-    "name": "Feijão Carioca - 60kg",
-    "type": "Material",
-    "quantity": 120,
-    "donor": "João Silva",
-    "receivalDate": "2024-01-01",
-    "expiryDate": "2024-12-31",
-    "validityPeriod": 365
+    "id": 2,
+    "name": "Maria Silva",
+    "email": "maria.silva@gmail.com",
+    "password": "senha123",
+    "dateOfBirth": "1995-01-01",
+    "gender": "Feminino",
+    "location": "Rio de Janeiro",
+    "preferences": "Cinema",
+    "biography": "Sou uma desenvolvedora de software",
+    "photos": "https://facebook.com/foto2.jpg",
+    "interests": "Leitura"
   }
-  ```
-- **Resposta**:
-  ```http
-  HTTP/1.1 200 OK
-  Content-Type: application/json
+]
+```
 
-  {
-    "id": 1,
-    "name": "Feijão Carioca - 60kg",
-    "type": "Material",
-    "quantity": 120,
-    "donor": "João Silva",
-    "receivalDate": "2024-01-01",
-    "expiryDate": "2024-12-31",
-    "validityPeriod": 365
-  }
-  ```
+### Obtenha um usuário específico por ID
 
-### 5. Excluir uma Doação
-- **Requisição**:
-  ```http
-  DELETE http://0.0.0.0:8080/donation/1
-  ```
-- **Resposta**:
-  ```http
-  HTTP/1.1 204 No Content
-  ```
+ *Endpoint:* GET /users/{id}
 
-### 6. Gerar um Relatório
-- **Requisição**:
-  ```http
-  POST http://0.0.0.0:8080/donation/reports/generate
-  Content-Type: application/json
+* Exemplo de requisição:
+```bash
+GET /users/1
+```
+* Exemplo de resposta:
+```json
+{
+  "id": 1,
+  "name": "João Silva",
+  "email": "joao.silva@gmail.com",
+  "password": "senha123",
+  "dateOfBirth": "1990-01-01",
+  "gender": "Masculino",
+  "location": "São Paulo",
+  "preferences": "Esportes",
+  "biography": "Sou um desenvolvedor de software",
+  "photos": "https://facebook.com/foto.jpg",
+  "interests": "Música"
+}
+```
 
-  {
-    "startDate": "2024-01-01",
-    "endDate": "2024-12-31",
-    "donationType": "Material",
-    "donor": "João Silva"
-  }
-  ```
-- **Resposta**:
-  ```http
-  HTTP/1.1 200 OK
-  Content-Type: application/json
+### Atualize um usuário específico
 
-  [
-    {
-      "id": 1,
-      "name": "Feijão Carioca - 60kg",
-      "type": "Material",
-      "quantity": 120,
-      "donor": "João Silva",
-      "receivalDate": "2024-01-01",
-      "expiryDate": "2024-12-31",
-      "validityPeriod": 365
-    }
-  ]
-  ```
+*Endpoint:* PUT /users/{id}
 
-### 7. Exportar Relatório como CSV
-- **Requisição**:
-  ```http
-  POST http://0.0.0.0:8080/donation/reports/csv
-  Content-Type: application/json
 
-  {
-    "startDate": "2024-01-01",
-    "endDate": "2024-12-31",
-    "donationType": "Material",
-    "donor": "João Silva"
-  }
-  ```
-- **Resposta**:
-  ```http
-  HTTP/1.1 200 OK
-  Content-Disposition: attachment; filename=donation_report.csv
-  Content-Type: text/csv
 
-  "Nome,Tipo,Quantidade,Doador,Data de recebimento,Data de validade,Período de validade Feijão Carioca - 60kg,Material,120,João Silva,2024-01-01,2024-12-31,365"
-  ```
+* Exemplo de requisição:
+```json
+{
+  "name": "João Silva",
+  "email": "joao.silva@gmail.com",
+  "password": "senha123",
+  "dateOfBirth": "1990-01-01",
+  "gender": "Masculino",
+  "location": "São Paulo",
+  "preferences": "Esportes",
+  "biography": "Sou um desenvolvedor de software",
+  "photos": "https://facebook.com/foto.jpg",
+  "interests": "Música"
+}
+```
+* Exemplo de resposta:
+```json
+{
+  "id": 1,
+  "name": "João Silva",
+  "email": "joao.silva@gmail.com",
+  "password": "senha123",
+  "dateOfBirth": "1990-01-01",
+  "gender": "Masculino",
+  "location": "São Paulo",
+  "preferences": "Esportes",
+  "biography": "Sou um desenvolvedor de software",
+  "photos": "https://facebook.com/foto.jpg",
+  "interests": "Música"
+}
+```
 
-### 8. Exportar Relatório como PDF
-- **Requisição**:
-  ```http
-  POST http://0.0.0.0:8080/donation/reports/pdf
-  Content-Type: application/json
+### Exclua um usuário específico
 
-  {
-    "startDate": "2024-01-01",
-    "endDate": "2024-12-31",
-    "donationType": "Material",
-    "donor": "João Silva"
-  }
-  ```
-- **Resposta**:
-  ```http
-  HTTP/1.1 200 OK
-  Content-Disposition: attachment; filename=donation_report.pdf
-  Content-Type: application/pdf
-  ```
+*Endpoint:* DELETE /users/{id}
+
+
+* Exemplo de requisição:
+```bash
+DELETE /users/1
+```
+* Exemplo de resposta:
+
+- Status 204 No Content
+- Status 404 Not Found
+
+````json
+{
+    "message": "Mensagem não encontrada"
+}
+````
+
 
 ## Conclusão
 Este manual fornece uma visão geral detalhada de todos os endpoints e funções da API do Gerenciador de Doativos. Use-o para facilitar o desenvolvimento, testes e integração com outros sistemas.

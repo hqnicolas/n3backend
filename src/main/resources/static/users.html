@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <ul>
+                <li><a href="donations.html">Donations</a></li>
+                <li><a href="messages.html">Messages</a></li>
+                <li><a href="users.html">Users</a></li>
+                <li><a href="reports.html">Reports</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main class="container" id="users-page">
+        <!-- content will be loaded here -->
+    </main>
+    <script src="script.js"></script>
+    <script>
+        // load users page
+        function loadUsers() {
+            fetch('http://localhost:8080/users')
+                .then(response => response.json())
+                .then(data => {
+                    const usersHtml = data.map(user => `
+                        <div>
+                            <h2>${user.name}</h2>
+                            <p>Email: ${user.email}</p>
+                            <p>Password: ${user.password}</p>
+                            <p>Date of Birth: ${user.dateOfBirth}</p>
+                            <p>Gender: ${user.gender}</p>
+                            <p>Location: ${user.location}</p>
+                            <p>Preferences: ${user.preferences}</p>
+                            <p>Biography: ${user.biography}</p>
+                            <p>Photos: ${user.photos}</p>
+                            <p>Interests: ${user.interests}</p>
+                        </div>
+                    `).join('');
+                    document.querySelector('#users-page').innerHTML = usersHtml;
+                })
+                .catch(error => console.error('Error loading users:', error));
+        }
+        
+        loadUsers();
+    </script>
+</body>
+</html>

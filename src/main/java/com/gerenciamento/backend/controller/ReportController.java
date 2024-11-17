@@ -1,5 +1,4 @@
 package com.gerenciamento.backend.controller;
-
 import com.gerenciamento.backend.exception.EntityNotFoundException;
 import com.gerenciamento.backend.model.Donation;
 import com.gerenciamento.backend.model.ReportFilter;
@@ -8,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.List;
@@ -31,8 +29,7 @@ public class ReportController {
             return new ResponseEntity<>(report, HttpStatus.OK);
         } catch (EntityNotFoundException e) {
             System.err.println("Entidade não encontrada: " + e.getMessage());
-            e.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } catch (Exception e) {
             System.err.println("Erro ao gerar relatório: " + e.getMessage());
             StringWriter sw = new StringWriter();
@@ -56,8 +53,7 @@ public class ReportController {
                     .body(csv);
         } catch (EntityNotFoundException e) {
             System.err.println("Entidade não encontrada: " + e.getMessage());
-            e.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } catch (Exception e) {
             System.err.println("Erro ao exportar relatório como CSV: " + e.getMessage());
             StringWriter sw = new StringWriter();
@@ -81,8 +77,7 @@ public class ReportController {
                     .body(pdf);
         } catch (EntityNotFoundException e) {
             System.err.println("Entidade não encontrada: " + e.getMessage());
-            e.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } catch (Exception e) {
             System.err.println("Erro ao exportar relatório como PDF: " + e.getMessage());
             StringWriter sw = new StringWriter();

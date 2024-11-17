@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 import lombok.Setter;
-
 import java.time.LocalDate;
 
 @Entity
@@ -27,7 +26,8 @@ public class Donation {
     private String donor;
 
     @NotNull(message = "Data de recebimento é necessária")
-    private LocalDate receivalDate;
+    @Column(name = "receiver_date")
+    private LocalDate receiverDate;
 
     @Setter
     @Future(message = "A data de validade deve ser no futuro")
@@ -39,7 +39,6 @@ public class Donation {
 
     @PrePersist
     public void setExpiryDateFromValidityPeriod() {
-        this.expiryDate = this.receivalDate.plusDays(this.validityPeriod);
+        this.expiryDate = this.receiverDate.plusDays(this.validityPeriod);
     }
-
 }

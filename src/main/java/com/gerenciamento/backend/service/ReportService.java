@@ -13,13 +13,10 @@ import org.apache.commons.csv.CSVPrinter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.io.ByteArrayOutputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class ReportService {
@@ -42,7 +39,7 @@ public class ReportService {
                 throw new IllegalArgumentException("A data de início deve ser anterior ou igual à data de término");
             }
 
-            List<Donation> report = donationRepository.findByReceivalDateBetweenAndTypeAndDonor(
+            List<Donation> report = donationRepository.findByReceiverDateBetweenAndTypeAndDonor(
                     filter.getStartDate(),
                     filter.getEndDate(),
                     filter.getDonationType(),
@@ -53,12 +50,10 @@ public class ReportService {
             return report;
         } catch (EntityNotFoundException e) {
             System.err.println("Entidade Não encontrada: " + e.getMessage());
-            e.printStackTrace();
-            throw new RuntimeException("Erro ao gerar relatório", e);
+                        throw new RuntimeException("Erro ao gerar relatório", e);
         } catch (Exception e) {
             System.err.println("Erro ao gerar relatório: " + e.getMessage());
-            e.printStackTrace();
-            throw new RuntimeException("Erro ao gerar relatório", e);
+                        throw new RuntimeException("Erro ao gerar relatório", e);
         }
     }
 
@@ -80,7 +75,7 @@ public class ReportService {
                         donation.getType(),
                         donation.getQuantity(),
                         donation.getDonor(),
-                        donation.getReceivalDate(),
+                        donation.getReceiverDate(),
                         donation.getExpiryDate(),
                         donation.getValidityPeriod()
                 );
@@ -90,8 +85,7 @@ public class ReportService {
             return out.toByteArray();
         } catch (EntityNotFoundException e) {
             System.err.println("Entidade Não encontrada: " + e.getMessage());
-            e.printStackTrace();
-            throw new EntityNotFoundException("Erro ao exportar relatório como CSV: " + e.getMessage(), e);
+                        throw new EntityNotFoundException("Erro ao exportar relatório como CSV: " + e.getMessage(), e);
         } catch (Exception e) {
             StringWriter sw = new StringWriter();
             PrintWriter pw = new PrintWriter(sw);
@@ -124,7 +118,7 @@ public class ReportService {
                 document.add(new Paragraph("Tipo: " + donation.getType()));
                 document.add(new Paragraph("Quantidade: " + donation.getQuantity()));
                 document.add(new Paragraph("Doador: " + donation.getDonor()));
-                document.add(new Paragraph("Data de Recebimento: " + donation.getReceivalDate()));
+                document.add(new Paragraph("Data de Recebimento: " + donation.getReceiverDate()));
                 document.add(new Paragraph("Data de Validade: " + donation.getExpiryDate()));
                 document.add(new Paragraph("Período de Validade: " + donation.getValidityPeriod()));
                 document.add(new Paragraph("\n"));
@@ -134,8 +128,7 @@ public class ReportService {
             return out.toByteArray();
         } catch (EntityNotFoundException e) {
             System.err.println("Entidade Não encontrada: " + e.getMessage());
-            e.printStackTrace();
-            throw new EntityNotFoundException("Erro ao exportar relatório como PDF: " + e.getMessage(), e);
+                        throw new EntityNotFoundException("Erro ao exportar relatório como PDF: " + e.getMessage(), e);
         } catch (DocumentException e) {
             StringWriter sw = new StringWriter();
             PrintWriter pw = new PrintWriter(sw);

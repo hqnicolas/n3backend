@@ -11,7 +11,6 @@ public class MensagemDTO {
         this.dataEnvio = dataEnvio;
     }
 
-    // Getters
     public String getConteudo() {
         return conteudo;
     }
