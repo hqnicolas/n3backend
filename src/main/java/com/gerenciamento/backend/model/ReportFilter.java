@@ -36,4 +36,36 @@ public class ReportFilter {
         this.donationType = donationType;
         this.donor = donor;
     }
+
+    public @NotNull @PastOrPresent LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(@NotNull @PastOrPresent LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
+    public @NotNull @FutureOrPresent LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(@NotNull @FutureOrPresent LocalDate endDate) {
+        this.endDate = endDate;
+    }
+
+    public @NotBlank(message = "O tipo é obrigatório") @Pattern(regexp = "^(Material|Financeira)$", message = "O tipo deve ser um dos tipos permitidos (Material, Financeira)") String getDonationType() {
+        return donationType;
+    }
+
+    public void setDonationType(@NotBlank(message = "O tipo é obrigatório") @Pattern(regexp = "^(Material|Financeira)$", message = "O tipo deve ser um dos tipos permitidos (Material, Financeira)") String donationType) {
+        this.donationType = donationType;
+    }
+
+    public @NotBlank(message = "Doador é necessário") String getDonor() {
+        return donor;
+    }
+
+    public void setDonor(@NotBlank(message = "Doador é necessário") String donor) {
+        this.donor = donor;
+    }
 }

@@ -27,10 +27,6 @@ public class ReportService {
     @Transactional(readOnly = true)
     public List<Donation> generateReport(ReportFilter filter) {
         try {
-            System.out.println("Gerando relatório com filtro: " + filter);
-            System.out.println("dataInicio: " + filter.getStartDate());
-            System.out.println("dataFim: " + filter.getEndDate());
-
             if (filter.getStartDate() == null || filter.getEndDate() == null) {
                 throw new IllegalArgumentException("A data de início e a data de término não devem ser nulas");
             }
@@ -39,31 +35,20 @@ public class ReportService {
                 throw new IllegalArgumentException("A data de início deve ser anterior ou igual à data de término");
             }
 
-            List<Donation> report = donationRepository.findByReceiverDateBetweenAndTypeAndDonor(
+            return donationRepository.findByReceiverDateBetweenAndTypeAndDonor(
                     filter.getStartDate(),
                     filter.getEndDate(),
                     filter.getDonationType(),
                     filter.getDonor()
             );
-
-            System.out.println("Relatório gerado com sucesso: " + report);
-            return report;
-        } catch (EntityNotFoundException e) {
-            System.err.println("Entidade Não encontrada: " + e.getMessage());
-                        throw new RuntimeException("Erro ao gerar relatório", e);
         } catch (Exception e) {
-            System.err.println("Erro ao gerar relatório: " + e.getMessage());
-                        throw new RuntimeException("Erro ao gerar relatório", e);
+            throw new RuntimeException("Erro ao gerar relatório", e);
         }
     }
 
     @Transactional(readOnly = true)
     public byte[] exportReportAsCsv(ReportFilter filter) {
         try {
-            System.out.println("Exportando o relatório como CSV filtrado: " + filter);
-            System.out.println("dataInicio: " + filter.getStartDate());
-            System.out.println("dataFim: " + filter.getEndDate());
-
             List<Donation> report = generateReport(filter);
 
             ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -81,16 +66,10 @@ public class ReportService {
                 );
             }
             printer.flush();
-            System.out.println("CSV relatório exportado com sucesso");
             return out.toByteArray();
         } catch (EntityNotFoundException e) {
-            System.err.println("Entidade Não encontrada: " + e.getMessage());
-                        throw new EntityNotFoundException("Erro ao exportar relatório como CSV: " + e.getMessage(), e);
+            throw new EntityNotFoundException("Erro ao exportar relatório como CSV: " + e.getMessage(), e);
         } catch (Exception e) {
-            StringWriter sw = new StringWriter();
-            PrintWriter pw = new PrintWriter(sw);
-            e.printStackTrace(pw);
-            System.err.println("Erro ao exportar relatório como CSV: " + sw.toString());
             throw new RuntimeException("Erro ao exportar relatório como CSV", e);
         }
     }
@@ -98,10 +77,6 @@ public class ReportService {
     @Transactional(readOnly = true)
     public byte[] exportReportAsPdf(ReportFilter filter) {
         try {
-            System.out.println("Exportando relatório como PDF filtrado: " + filter);
-            System.out.println("dataInicio: " + filter.getStartDate());
-            System.out.println("dataFim: " + filter.getEndDate());
-
             List<Donation> report = generateReport(filter);
 
             ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -124,16 +99,10 @@ public class ReportService {
                 document.add(new Paragraph("\n"));
             }
             document.close();
-            System.out.println("PDF relatório exportado com sucesso");
             return out.toByteArray();
         } catch (EntityNotFoundException e) {
-            System.err.println("Entidade Não encontrada: " + e.getMessage());
-                        throw new EntityNotFoundException("Erro ao exportar relatório como PDF: " + e.getMessage(), e);
+            throw new EntityNotFoundException("Erro ao exportar relatório como PDF: " + e.getMessage(), e);
         } catch (DocumentException e) {
-            StringWriter sw = new StringWriter();
-            PrintWriter pw = new PrintWriter(sw);
-            e.printStackTrace(pw);
-            System.err.println("Erro ao exportar relatório como PDF: " + sw.toString());
             throw new RuntimeException("Erro ao exportar relatório como PDF", e);
         }
     }

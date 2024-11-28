@@ -16,12 +16,10 @@ public class DonationService {
 
     public DonationDTO registerDonation(DonationDTO donationDTO) {
         try {
-            System.out.println("Registrando Doação: " + donationDTO);
             Donation donation = mapToDonation(donationDTO);
             Donation savedDonation = donationRepository.save(donation);
             return mapToDonationDTO(savedDonation);
         } catch (Exception e) {
-            System.err.println("Erro Registrando Doação: " + e.getMessage());
             throw new RuntimeException("Erro Registrando Doação: " + e.getMessage(), e);
         }
     }
@@ -34,15 +32,12 @@ public class DonationService {
 
     public DonationDTO getDonationById(Long id) {
         try {
-            System.out.println("Obtendo doação por ID: " + id);
             Donation donation = donationRepository.findById(id)
                     .orElseThrow(() -> new EntityNotFoundException("id não encontrado: " + id));
             return mapToDonationDTO(donation);
         } catch (EntityNotFoundException e) {
-            System.err.println("Erro Obtendo doação por ID: " + e.getMessage());
             throw e;
         } catch (Exception e) {
-            System.err.println("Erro Obtendo doação por ID: " + e.getMessage());
             throw new RuntimeException("Erro Obtendo doação por ID: " + e.getMessage(), e);
         }
     }
@@ -62,23 +57,18 @@ public class DonationService {
             Donation updatedDonation = donationRepository.save(existingDonation);
             return mapToDonationDTO(updatedDonation);
         } catch (EntityNotFoundException e) {
-            System.err.println("Erro ao atualizar doação por ID: " + e.getMessage());
             throw e;
         } catch (Exception e) {
-            System.err.println("Erro ao atualizar doação por ID: " + e.getMessage());
             throw new RuntimeException("Erro ao atualizar doação por ID: " + e.getMessage(), e);
         }
     }
 
     public void deleteDonation(Long id) {
         try {
-            System.out.println("Excluindo doação por ID: " + id);
             donationRepository.deleteById(id);
         } catch (EntityNotFoundException e) {
-            System.err.println("Error Excluindo doação por ID: " + e.getMessage());
             throw e;
         } catch (Exception e) {
-            System.err.println("Error Excluindo doação por ID: " + e.getMessage());
             throw new RuntimeException("Error Excluindo doação por ID: " + e.getMessage(), e);
         }
     }

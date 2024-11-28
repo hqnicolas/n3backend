@@ -15,49 +15,38 @@ public class UserService {
 
     public UserDTO createUser(UserDTO userDTO) {
         try {
-            System.out.println("Criando usuário: " + userDTO);
             User user = mapToUser(userDTO);
             User savedUser = userRepository.save(user);
             return mapToUserDTO(savedUser);
         } catch (Exception e) {
-            System.err.println("Erro ao criar usuário: " + e.getMessage());
-            e.printStackTrace();
             throw new RuntimeException("Erro ao criar usuário: " + e.getMessage(), e);
         }
     }
 
     public List<UserDTO> getAllUsers() {
         try {
-            System.out.println("Obtendo todos os usuários");
             return userRepository.findAll().stream()
                     .map(this::mapToUserDTO)
                     .toList();
         } catch (Exception e) {
-            System.err.println("Erro ao obter usuários: " + e.getMessage());
-            e.printStackTrace();
             throw new RuntimeException("Erro ao obter usuários: " + e.getMessage(), e);
         }
     }
 
     public UserDTO getUserById(Long id) {
         try {
-            System.out.println("Obtendo usuário por ID: " + id);
             User user = userRepository.findById(id)
                     .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado com id: " + id));
             return mapToUserDTO(user);
         } catch (EntityNotFoundException e) {
-            System.err.println("Erro ao obter usuário por ID: " + e.getMessage());
             throw e;
         } catch (Exception e) {
-            System.err.println("Erro ao obter usuário por ID: " + e.getMessage());
-            e.printStackTrace();
             throw new RuntimeException("Erro ao obter usuário por ID: " + e.getMessage(), e);
         }
     }
 
     public UserDTO updateUser(Long id, UserDTO userDTO) {
         try {
-            System.out.println("Atualizando usuário por ID: " + id);
             User existingUser = userRepository.findById(id)
                     .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado com id: " + id));
             existingUser.setName(userDTO.getName());
@@ -73,25 +62,18 @@ public class UserService {
             User updatedUser = userRepository.save(existingUser);
             return mapToUserDTO(updatedUser);
         } catch (EntityNotFoundException e) {
-            System.err.println("Erro ao atualizar usuário por ID: " + e.getMessage());
             throw e;
         } catch (Exception e) {
-            System.err.println("Erro ao atualizar usuário por ID: " + e.getMessage());
-            e.printStackTrace();
             throw new RuntimeException("Erro ao atualizar usuário por ID: " + e.getMessage(), e);
         }
     }
 
     public void deleteUser(Long id) {
         try {
-            System.out.println("Excluindo usuário por ID: " + id);
             userRepository.deleteById(id);
         } catch (EntityNotFoundException e) {
-            System.err.println("Erro ao excluir usuário por ID: " + e.getMessage());
             throw e;
         } catch (Exception e) {
-            System.err.println("Erro ao excluir usuário por ID: " + e.getMessage());
-            e.printStackTrace();
             throw new RuntimeException("Erro ao excluir usuário por ID: " + e.getMessage(), e);
         }
     }

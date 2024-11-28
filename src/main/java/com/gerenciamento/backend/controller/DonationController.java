@@ -30,17 +30,7 @@ public class DonationController {
 
     @PostMapping
     public ResponseEntity<Map<String, String>> registerDonation(@RequestBody DonationDTO donationDTO) {
-        System.out.println("Solicitação de registro de doação recebida: " + donationDTO);
         try {
-            System.out.println("DonationDTO Details: Name: " + donationDTO.getName() +
-                               ", Type: " + donationDTO.getType() +
-                               ", Quantity: " + donationDTO.getQuantity() +
-                               ", Donor: " + donationDTO.getDonor() +
-                               ", Receiver Date: " + donationDTO.getReceiverDate() +
-                               ", Expiry Date: " + donationDTO.getExpiryDate() +
-                               ", Validity Period: " + donationDTO.getValidityPeriod());
-
-            System.out.println("Entrando no serviço de registro de doação");
             Donation donation = new Donation();
             donation.setName(donationDTO.getName());
             donation.setType(donationDTO.getType());
@@ -51,26 +41,21 @@ public class DonationController {
             donation.setValidityPeriod(donationDTO.getValidityPeriod());
 
             DonationDTO createdDonation = donationService.registerDonation(donationDTO);
-            System.out.println("Doação registrada com sucesso: " + createdDonation);
             return new ResponseEntity<>(Collections.singletonMap("mensagem", "Doação registrada com sucesso!"), HttpStatus.CREATED);
         } catch (ConstraintViolationException e) {
-            System.err.println("Validação falhou: " + e.getMessage());
             Map<String, String> errors = new HashMap<>();
             for (ConstraintViolation<?> violation : e.getConstraintViolations()) {
                 errors.put(violation.getPropertyPath().toString(), violation.getMessage());
-                System.err.println("Violação: " + violation.getPropertyPath() + " - " + violation.getMessage());
             }
             return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
-            System.err.println("Erro ao registrar doação: " + e.getMessage() + " - Rastreamento de pilha: " + e.getStackTrace());
-                        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
 
     @GetMapping
     public ResponseEntity<List<DonationDTO>> getAllDonations(@RequestParam(defaultValue = "0") int page,
                                                              @RequestParam(defaultValue = "20") int size) {
-        System.out.println("Solicitação para receber todas as doações com a página:" + page + " e tamanho:" + size);
         try {
             Page<DonationDTO> donationsPage = donationService.getAllDonations(page, size);
             List<DonationDTO> donationDTOs = donationsPage.getContent().stream()
@@ -87,11 +72,9 @@ public class DonationController {
                     return dto;
                 }).collect(Collectors.toList());
 
-            System.out.println("Total de doações obtidas: " + donationsPage.getTotalElements());
             return new ResponseEntity<>(donationDTOs, HttpStatus.OK);
         } catch (Exception e) {
-            System.err.println("Erro ao obter doações: " + e.getMessage());
-                        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
 
