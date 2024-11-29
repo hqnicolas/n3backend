@@ -133,7 +133,7 @@ Este manual descreve todos os endpoints e funções da API do Gerenciador de Doa
 
 ## 4. Exportar Relatório
 *Endpoint:* GET /donation/reports/pdf/{startDate}/{endDate}/{donationType}/{donor}
-*Example:* GET http://0.0.0.0:8080/donation/reports/pdf/2024-01-01/2025-01-31/Material/João Silva
+*Example:* GET `http://0.0.0.0:8080/donation/reports/pdf/2024-01-01/2025-01-31/Material/João Silva`
 
 *Descrição:* Exporta o relatório gerado em formatos CSV ou PDF.
 
