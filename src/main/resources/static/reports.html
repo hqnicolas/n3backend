@@ -64,43 +64,30 @@
             const type = document.getElementById('type').value;
             const donor = document.getElementById('donor').value;
 
-            fetch(`http://localhost:8080/donation/reports/generate`, {
-                method: 'POST',
+            fetch(`http://localhost:8080/donation/reports/pdf/${startDate}/${endDate}/${type}/${donor}`, {
+                method: 'GET',
                 headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    startDate,
-                    endDate,
-                    type,
-                    donor
-                })
+                    'Accept': 'application/pdf'
+                }
             })
             .then(response => {
-                console.log('Reports response:', response);
                 if (response.ok) {
-                    return response.json();
+                    return response.blob(); // Change to blob to handle the pdf
                 } else {
                     return response.text().then(text => {
-                        console.log('Reports response body:', text);
                         throw new Error(`Error loading reports: ${response.statusText}`);
                     });
                 }
             })
-            .then(data => {
-                console.log('Reports data:', data);
-                const reportHtml = data.map(report => `
-                    <div>
-                        <h2>${report.name}</h2>
-                        <p>Type: ${report.type}</p>
-                        <p>Quantity: ${report.quantity}</p>
-                        <p>Donor: ${report.donor}</p>
-                        <p>Receiver Date: ${report.receiverDate}</p>
-                        <p>Expiry Date: ${report.expiryDate}</p>
-                        <p>Validity Period: ${report.validityPeriod}</p>
-                    </div>
-                `).join('');
-                reportContainer.innerHTML = reportHtml;
+            .then(blob => {
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.style.display = 'none';
+                a.href = url;
+                a.download = 'donation_report.pdf';
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
             })
             .catch(error => {
                 console.error('Error loading reports:', error);

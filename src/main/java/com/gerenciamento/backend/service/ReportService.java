@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -75,8 +76,14 @@ public class ReportService {
     }
 
     @Transactional(readOnly = true)
-    public byte[] exportReportAsPdf(ReportFilter filter) {
+    public byte[] exportReportAsPdf(LocalDate startDate, LocalDate endDate, String donationType, String donor) {
         try {
+            ReportFilter filter = new ReportFilter();
+            filter.setStartDate(startDate);
+            filter.setEndDate(endDate);
+            filter.setDonationType(donationType);
+            filter.setDonor(donor);
+
             List<Donation> report = generateReport(filter);
 
             ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -84,9 +91,9 @@ public class ReportService {
             PdfWriter.getInstance(document, out);
             document.open();
             document.add(new Paragraph("Relatório de Doações"));
-            document.add(new Paragraph("Intervalo de datas: " + filter.getStartDate() + " - " + filter.getEndDate()));
-            document.add(new Paragraph("Tipo: " + filter.getDonationType()));
-            document.add(new Paragraph("Doador: " + filter.getDonor()));
+            document.add(new Paragraph("Intervalo de datas: " + startDate + " - " + endDate));
+            document.add(new Paragraph("Tipo: " + donationType));
+            document.add(new Paragraph("Doador: " + donor));
             document.add(new Paragraph("\nDoações:"));
             for (Donation donation : report) {
                 document.add(new Paragraph("Nome: " + donation.getName()));

@@ -1,10 +1,10 @@
 _type: export
 __export_format: 4
-__export_date: 2024-11-17T08:38:49.790Z
-__export_source: insomnia.desktop.app:v10.1.1
+__export_date: 2024-11-29T01:11:18.040Z
+__export_source: insomnia.desktop.app:v10.2.0
 resources:
-  - _id: req_5f47c96fce844714a65fa6264367de39
-    parentId: fld_6108fa3040df4a3b8ae381d418f15e9f
+  - _id: req_0fdafebbe2f4435b8fd6c4d369de963d
+    parentId: fld_55a14d33b5a249ea88270c88b055944b
     modified: 1731832636701
     created: 1731831875352
     url: http://0.0.0.0:8080/users
@@ -43,8 +43,8 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
-  - _id: fld_6108fa3040df4a3b8ae381d418f15e9f
-    parentId: wrk_scratchpad
+  - _id: fld_55a14d33b5a249ea88270c88b055944b
+    parentId: wrk_a30d3128e494483da36ec2ca269d8e57
     modified: 1731831038367
     created: 1731831038367
     name: Usuários
@@ -53,16 +53,16 @@ resources:
     environmentPropertyOrder: null
     metaSortKey: -1731831038367
     _type: request_group
-  - _id: wrk_scratchpad
+  - _id: wrk_a30d3128e494483da36ec2ca269d8e57
     parentId: null
-    modified: 1731702332910
-    created: 1731702332910
-    name: Scratch Pad
+    modified: 1732842188243
+    created: 1732789745465
+    name: N3BackendLocal
     description: ""
     scope: collection
     _type: workspace
-  - _id: req_703f234740fd4724942db7e412eda4d4
-    parentId: fld_6108fa3040df4a3b8ae381d418f15e9f
+  - _id: req_83247a5bdf564d05af693b269c42c659
+    parentId: fld_55a14d33b5a249ea88270c88b055944b
     modified: 1731831955102
     created: 1731831938646
     url: http://0.0.0.0:8080/users
@@ -85,8 +85,8 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
-  - _id: req_4bb4cd6fec3a42378ff3b44dac016aec
-    parentId: fld_6108fa3040df4a3b8ae381d418f15e9f
+  - _id: req_009f58d8c6de4e45975fb6fd13dd8782
+    parentId: fld_55a14d33b5a249ea88270c88b055944b
     modified: 1731832655776
     created: 1731832032816
     url: http://0.0.0.0:8080/users/1
@@ -109,8 +109,8 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
-  - _id: req_849f9481b34a48e79b832d6318507eaa
-    parentId: fld_6108fa3040df4a3b8ae381d418f15e9f
+  - _id: req_f406c99e6e374cda9816d768234e996f
+    parentId: fld_55a14d33b5a249ea88270c88b055944b
     modified: 1731832127384
     created: 1731832101411
     url: http://0.0.0.0:8080/users/1
@@ -149,8 +149,8 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
-  - _id: req_e9c993c77e21465bb32310dc0e43d027
-    parentId: fld_6108fa3040df4a3b8ae381d418f15e9f
+  - _id: req_e84bcb8ad989473e8e76e14b359b50e7
+    parentId: fld_55a14d33b5a249ea88270c88b055944b
     modified: 1731832192510
     created: 1731832156800
     url: http://0.0.0.0:8080/users/2
@@ -177,8 +177,8 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
-  - _id: req_2eb3bfc5e8d142c6a4e77b1d5c896c06
-    parentId: fld_6fee36308c514d378717c560e2bc0988
+  - _id: req_a105031caa914b1aac6582946fe5b475
+    parentId: fld_bade222665e9487e88cf07325a348812
     modified: 1731830740914
     created: 1731830612880
     url: http://0.0.0.0:8080/api/mensagens
@@ -210,8 +210,8 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
-  - _id: fld_6fee36308c514d378717c560e2bc0988
-    parentId: wrk_scratchpad
+  - _id: fld_bade222665e9487e88cf07325a348812
+    parentId: wrk_a30d3128e494483da36ec2ca269d8e57
     modified: 1731830557316
     created: 1731830557316
     name: Mensagens
@@ -220,8 +220,8 @@ resources:
     environmentPropertyOrder: null
     metaSortKey: -1731830557316
     _type: request_group
-  - _id: req_73db403aac8e42e4947f58b22eb08779
-    parentId: fld_6fee36308c514d378717c560e2bc0988
+  - _id: req_61332834eccf48d998de5cc2aec87d09
+    parentId: fld_bade222665e9487e88cf07325a348812
     modified: 1731830806521
     created: 1731830753892
     url: http://0.0.0.0:8080/api/mensagens
@@ -248,8 +248,8 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
-  - _id: req_67d4cca6c3dc49f19904ad391ba081aa
-    parentId: fld_6fee36308c514d378717c560e2bc0988
+  - _id: req_c8181b01626344edb382eeabfe442624
+    parentId: fld_bade222665e9487e88cf07325a348812
     modified: 1731830800281
     created: 1731830782421
     url: http://0.0.0.0:8080/api/mensagens/1
@@ -276,8 +276,8 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
-  - _id: req_977d9080f38a40b689218b9e6baa44a1
-    parentId: fld_6fee36308c514d378717c560e2bc0988
+  - _id: req_f6128d4209fd4982b3fd8ac0246c6484
+    parentId: fld_bade222665e9487e88cf07325a348812
     modified: 1731830887104
     created: 1731830828575
     url: http://0.0.0.0:8080/api/mensagens/1
@@ -309,8 +309,8 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
-  - _id: req_14451db2819a4ecd975f07846535ecc3
-    parentId: fld_6fee36308c514d378717c560e2bc0988
+  - _id: req_c3dc00701d5f411fb6103e580fdea7d0
+    parentId: fld_bade222665e9487e88cf07325a348812
     modified: 1731830945462
     created: 1731830927862
     url: http://0.0.0.0:8080/api/mensagens/1
@@ -337,8 +337,8 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
-  - _id: req_9c02c5d811df4aedae9b4e734d154819
-    parentId: fld_de5f6e6a2cdf43be9cebe4561ceea702
+  - _id: req_c01e8938f5af4173831808d0e4b7cd46
+    parentId: fld_eb07ac5ef41f4c7d8d128691343ebac5
     modified: 1731830537377
     created: 1731820753403
     url: http://0.0.0.0:8080/donation
@@ -372,8 +372,8 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
-  - _id: fld_de5f6e6a2cdf43be9cebe4561ceea702
-    parentId: wrk_scratchpad
+  - _id: fld_eb07ac5ef41f4c7d8d128691343ebac5
+    parentId: wrk_a30d3128e494483da36ec2ca269d8e57
     modified: 1731830515065
     created: 1731830515065
     name: Doações
@@ -382,8 +382,8 @@ resources:
     environmentPropertyOrder: null
     metaSortKey: -1731830515065
     _type: request_group
-  - _id: req_664385691da94f1bac42f635b3c5e629
-    parentId: fld_de5f6e6a2cdf43be9cebe4561ceea702
+  - _id: req_f5d17781bf934260a90a7ffa759c9e83
+    parentId: fld_eb07ac5ef41f4c7d8d128691343ebac5
     modified: 1731830535877
     created: 1731820753405
     url: http://0.0.0.0:8080/donation?page=0&size=20
@@ -408,32 +408,24 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
-  - _id: req_baa8b10d4cea4d6eb454294dec82f17d
-    parentId: fld_de5f6e6a2cdf43be9cebe4561ceea702
-    modified: 1731830542213
+  - _id: req_48e451af057742ceb3124529d0b1b724
+    parentId: fld_eb07ac5ef41f4c7d8d128691343ebac5
+    modified: 1732842518743
     created: 1731820753406
-    url: http://0.0.0.0:8080/donation/reports/pdf
+    url: http://0.0.0.0:8080/donation/reports/pdf/2024-01-01/2025-01-31/Material/João
+      Silva
     name: Exportar Relatório como PDF
     description: ""
-    method: POST
-    body:
-      mimeType: application/json
-      text: |-
-        {
-          "startDate": "2024-01-01",
-          "endDate": "2024-12-31",
-          "donationType": "Material",
-          "donor": "João Silva"
-        }
+    method: GET
+    body: {}
     parameters: []
     headers:
-      - name: Content-Type
-        value: application/json
       - name: User-Agent
         value: insomnia/10.1.1
     authentication: {}
     metaSortKey: -1731830525943
     isPrivate: false
+    pathParameters: []
     settingStoreCookies: true
     settingSendCookies: true
     settingDisableRenderRequestBody: false
@@ -441,8 +433,8 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
-  - _id: req_df9599b384b6475eb50cb3317081055a
-    parentId: fld_de5f6e6a2cdf43be9cebe4561ceea702
+  - _id: req_4ff90f408d2e47f7b5e79bf98e8d8967
+    parentId: fld_eb07ac5ef41f4c7d8d128691343ebac5
     modified: 1731830543526
     created: 1731820753407
     url: http://0.0.0.0:8080/donation/reports/csv
@@ -474,8 +466,8 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
-  - _id: req_ee9dac304ae440bca29e75662fb1c891
-    parentId: fld_de5f6e6a2cdf43be9cebe4561ceea702
+  - _id: req_6e010ee180a84716a6c9107f45e60092
+    parentId: fld_eb07ac5ef41f4c7d8d128691343ebac5
     modified: 1731830534152
     created: 1731820753405
     url: http://0.0.0.0:8080/donation/1
@@ -500,8 +492,8 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
-  - _id: req_ed08b1354f034917ba35f0d20270cf90
-    parentId: fld_de5f6e6a2cdf43be9cebe4561ceea702
+  - _id: req_4162aad8a08a4763ae51f908c8b91a8a
+    parentId: fld_eb07ac5ef41f4c7d8d128691343ebac5
     modified: 1731830529437
     created: 1731820753408
     url: http://0.0.0.0:8080/donation/1
@@ -537,8 +529,8 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
-  - _id: req_831e3b92b1b2439fab06172ff331a429
-    parentId: fld_de5f6e6a2cdf43be9cebe4561ceea702
+  - _id: req_005c3102e2c24b1b82c730178d7ea076
+    parentId: fld_eb07ac5ef41f4c7d8d128691343ebac5
     modified: 1731830527805
     created: 1731820753409
     url: http://0.0.0.0:8080/donation/2
@@ -562,8 +554,8 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
-  - _id: req_eebbfddbf4ce4664bb477939548af4b6
-    parentId: fld_de5f6e6a2cdf43be9cebe4561ceea702
+  - _id: req_de7b14536d0f4c27aaab95012e508963
+    parentId: fld_eb07ac5ef41f4c7d8d128691343ebac5
     modified: 1731830525422
     created: 1731820753408
     url: http://0.0.0.0:8080/donation/reports/generate
@@ -595,30 +587,22 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
-  - _id: env_99d30891da4bdcebc63947a8fc17f076de878684
-    parentId: wrk_scratchpad
-    modified: 1731702349514
-    created: 1731702349514
+  - _id: env_eb456d1c62928db06516d1ae902246301c64b98c
+    parentId: wrk_a30d3128e494483da36ec2ca269d8e57
+    modified: 1732842188243
+    created: 1732789745468
     name: Base Environment
     data: {}
     dataPropertyOrder: null
     color: null
     isPrivate: false
-    metaSortKey: 1731702349514
+    metaSortKey: 1732789745468
+    environmentType: kv
     _type: environment
-  - _id: jar_99d30891da4bdcebc63947a8fc17f076de878684
-    parentId: wrk_scratchpad
-    modified: 1731744370740
-    created: 1731702349515
+  - _id: jar_eb456d1c62928db06516d1ae902246301c64b98c
+    parentId: wrk_a30d3128e494483da36ec2ca269d8e57
+    modified: 1732842188264
+    created: 1732842188264
     name: Default Jar
-    cookies:
-      - key: connect.sid
-        value: s%3A6qd8xIsoDJ7NbP3im2cw9827jMulN4Nz.s4%2B4Zg%2FcAZxlLx28xAwppjx92WZAccu7akY1dBbgMfw
-        domain: 10.1.1.52
-        path: /
-        httpOnly: true
-        hostOnly: true
-        creation: 2024-11-15T20:27:27.438Z
-        lastAccessed: 2024-11-16T08:06:10.740Z
-        id: 191cc14b-a4bd-4d1c-b530-9b8d890451f6
+    cookies: []
     _type: cookie_jar

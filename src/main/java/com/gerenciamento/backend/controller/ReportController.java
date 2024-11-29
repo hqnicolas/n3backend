@@ -1,4 +1,5 @@
 package com.gerenciamento.backend.controller;
+
 import com.gerenciamento.backend.exception.EntityNotFoundException;
 import com.gerenciamento.backend.model.Donation;
 import com.gerenciamento.backend.model.ReportFilter;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -18,9 +20,22 @@ public class ReportController {
     @Autowired
     private ReportService reportService;
 
-    @PostMapping("/reports/generate")
-    public ResponseEntity<List<Donation>> generateReport(@RequestBody ReportFilter filter) {
+    @GetMapping("/reports/generate/{startDate}/{endDate}/{donationType}/{donor}")
+    public ResponseEntity<List<Donation>> generateReport(
+            @PathVariable String startDate,
+            @PathVariable String endDate,
+            @PathVariable String donationType,
+            @PathVariable String donor) {
         try {
+            LocalDate start = LocalDate.parse(startDate);
+            LocalDate end = LocalDate.parse(endDate);
+
+            ReportFilter filter = new ReportFilter();
+            filter.setStartDate(start);
+            filter.setEndDate(end);
+            filter.setDonationType(donationType);
+            filter.setDonor(donor);
+
             List<Donation> report = reportService.generateReport(filter);
             return new ResponseEntity<>(report, HttpStatus.OK);
         } catch (EntityNotFoundException e) {
@@ -34,9 +49,22 @@ public class ReportController {
         }
     }
 
-    @PostMapping("/reports/csv")
-    public ResponseEntity<byte[]> exportReportAsCsv(@RequestBody ReportFilter filter) {
+    @GetMapping("/reports/csv/{startDate}/{endDate}/{donationType}/{donor}")
+    public ResponseEntity<byte[]> exportReportAsCsv(
+            @PathVariable String startDate,
+            @PathVariable String endDate,
+            @PathVariable String donationType,
+            @PathVariable String donor) {
         try {
+            LocalDate start = LocalDate.parse(startDate);
+            LocalDate end = LocalDate.parse(endDate);
+
+            ReportFilter filter = new ReportFilter();
+            filter.setStartDate(start);
+            filter.setEndDate(end);
+            filter.setDonationType(donationType);
+            filter.setDonor(donor);
+
             byte[] csv = reportService.exportReportAsCsv(filter);
             return ResponseEntity.ok()
                     .header("Content-Disposition", "attachment; filename=donation_report.csv")
@@ -51,10 +79,17 @@ public class ReportController {
         }
     }
 
-    @PostMapping("/reports/pdf")
-    public ResponseEntity<byte[]> exportReportAsPdf(@RequestBody ReportFilter filter) {
+    @GetMapping("/reports/pdf/{startDate}/{endDate}/{donationType}/{donor}")
+    public ResponseEntity<byte[]> exportReportAsPdf(
+            @PathVariable String startDate,
+            @PathVariable String endDate,
+            @PathVariable String donationType,
+            @PathVariable String donor) {
         try {
-            byte[] pdf = reportService.exportReportAsPdf(filter);
+            LocalDate start = LocalDate.parse(startDate);
+            LocalDate end = LocalDate.parse(endDate);
+
+            byte[] pdf = reportService.exportReportAsPdf(start, end, donationType, donor);
             return ResponseEntity.ok()
                     .header("Content-Disposition", "attachment; filename=donation_report.pdf")
                     .body(pdf);
