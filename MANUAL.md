@@ -26,7 +26,7 @@ Este manual descreve todos os endpoints e funções da API do Gerenciador de Doa
 **relatório Endpoints**
 `POST /reports/generate`: Gere um relatório com base em filtros específicos
 `POST /reports/csv`: Exporte um relatório como um arquivo CSV
-`POST /reports/pdf`: Exporte um relatório como um arquivo PDF
+`GET /donation/reports/pdf/{startDate}/{endDate}/{donationType}/{donor}`: Exporte um relatório como um arquivo PDF
 **usuário Endpoints**
 `POST /users`: Crie um novo usuário
 `GET /users`: Obtenha uma lista de todos os usuários
@@ -132,7 +132,8 @@ Este manual descreve todos os endpoints e funções da API do Gerenciador de Doa
 ```
 
 ## 4. Exportar Relatório
-*Endpoint:* GET /relatorio/exportar
+*Endpoint:* GET /donation/reports/pdf/{startDate}/{endDate}/{donationType}/{donor}
+*Example:* GET http://0.0.0.0:8080/donation/reports/pdf/2024-01-01/2025-01-31/Material/João Silva
 
 *Descrição:* Exporta o relatório gerado em formatos CSV ou PDF.
 
